@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="600" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1a9292e9-f207-412c-8b3f-3238c34a7bb0">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="fa437436-c2f1-4f22-93e9-25820832bc06"/>
+	<subDataset name="Table Dataset 2" uuid="8a6dd194-db4a-4217-84f2-65eb0b412d43"/>
+	<subDataset name="Table Dataset 3" uuid="a748e556-cad9-468d-ad45-a24a59f6ac29"/>
+	<parameter name="maHD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+    dbo.ChiTietHoaDon.SoLuong, 
+    dbo.ChiTietHoaDon.GiaBan, 
+    dbo.SanPham.TenSanPham, 
+    dbo.NhanVien.TenNhanVien,
+    dbo.HoaDon.MaHoaDon,
+    dbo.HoaDon.GiamGia,
+    CASE 
+        WHEN dbo.HoaDon.MaKhachHang IS NOT NULL THEN dbo.KhachHang.TenKhachHang
+        ELSE NULL
+    END AS TenKhachHang,
+    dbo.HoaDon.NgayLap,
+    (dbo.ChiTietHoaDon.SoLuong * dbo.ChiTietHoaDon.GiaBan) as TongTien,
+    (SUM((dbo.ChiTietHoaDon.SoLuong * dbo.ChiTietHoaDon.GiaBan)) OVER (PARTITION BY dbo.ChiTietHoaDon.MaHoaDon) - dbo.HoaDon.GiamGia) as TongTienHoaDon
+FROM     
+    dbo.ChiTietHoaDon 
+INNER JOIN
+    dbo.HoaDon ON dbo.ChiTietHoaDon.MaHoaDon = dbo.HoaDon.MaHoaDon 
+INNER JOIN
+    dbo.NhanVien ON dbo.HoaDon.MaNhanVien = dbo.NhanVien.MaNhanVien 
+INNER JOIN
+    dbo.SanPham ON dbo.ChiTietHoaDon.MaSanPham = dbo.SanPham.MaSanPham
+LEFT JOIN
+    dbo.KhachHang ON dbo.HoaDon.MaKhachHang = dbo.KhachHang.MaKhachHang 
+WHERE 
+    dbo.ChiTietHoaDon.MaHoaDon = $P{maHD}]]>
+	</queryString>
+	<field name="SoLuong" class="java.lang.Integer"/>
+	<field name="GiaBan" class="java.lang.Float"/>
+	<field name="TenSanPham" class="java.lang.String"/>
+	<field name="TenNhanVien" class="java.lang.String"/>
+	<field name="MaHoaDon" class="java.lang.String"/>
+	<field name="GiamGia" class="java.lang.Double"/>
+	<field name="TenKhachHang" class="java.lang.String"/>
+	<field name="NgayLap" class="java.sql.Date"/>
+	<field name="TongTien" class="java.lang.Float"/>
+	<field name="TongTienHoaDon" class="java.lang.Double"/>
+	<variable name="GiamGia_1" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{GiamGia}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="146" y="19" width="276" height="36" uuid="65144bb3-daff-4bf0-a7de-2896e7900c57"/>
+				<textElement>
+					<font fontName="Times New Roman" size="24" isBold="true" pdfFontName="Times-Bold" pdfEncoding="Cp1258" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[HÓA ĐƠN BÁN HÀNG]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="64" splitType="Stretch">
+			<textField>
+				<reportElement x="96" y="15" width="100" height="20" uuid="e44f4332-74c9-4a63-92e2-e76338d88b11"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TenNhanVien}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="36" y="15" width="100" height="20" uuid="271f5ce0-f0bf-43e7-a0bc-a77b3f3aa93c"/>
+				<textElement>
+					<font fontName="Arial" isBold="true" pdfEncoding="Cp1258"/>
+				</textElement>
+				<text><![CDATA[Nhân viên:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="408" y="15" width="100" height="20" uuid="095299ef-26b1-4835-8fb6-5344ecdee87a"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TenKhachHang}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="96" y="44" width="100" height="20" uuid="12a9d1f4-2ab4-481f-a65d-cd9021505690"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NgayLap}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="36" y="44" width="100" height="20" uuid="5f622eb3-86aa-4aa6-88d2-2a1ecb0c0877"/>
+				<textElement>
+					<font fontName="Arial" isBold="true" pdfEncoding="Cp1258"/>
+				</textElement>
+				<text><![CDATA[Ngày lập: ]]></text>
+			</staticText>
+			<elementGroup>
+				<staticText>
+					<reportElement x="343" y="15" width="100" height="20" uuid="ecd60d29-8193-4c50-a569-f1937b295b84"/>
+					<textElement>
+						<font fontName="Arial" isBold="true" pdfEncoding="Cp1258"/>
+					</textElement>
+					<text><![CDATA[Khách hàng:]]></text>
+				</staticText>
+			</elementGroup>
+			<staticText>
+				<reportElement x="343" y="44" width="100" height="20" uuid="dc1ee902-c796-49e2-a0af-b52f4f32ec43"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mã hóa đơn:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="408" y="44" width="100" height="20" uuid="6ade9286-7d78-47a4-a581-74f075a815c9"/>
+				<textFieldExpression><![CDATA[$F{MaHoaDon}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="36" y="1" width="133" height="37" uuid="65c46a50-43b4-489e-94bd-0659b601541a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Tên sản phẩm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="1" width="134" height="37" uuid="17fdcd02-72a1-4a79-8b05-9518a9c9403e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Số lượng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="1" width="121" height="37" uuid="f3619634-8b8c-4c84-ad4c-fa896a82c5a6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Giá bán]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="424" y="1" width="100" height="37" uuid="fd1654af-5a08-4291-939b-edf6eec8e7fe"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Tổng tiền]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement x="36" y="0" width="133" height="43" uuid="a4c629fd-57f4-48b2-b56f-278ca0bfa8e4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TenSanPham}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="169" y="0" width="134" height="43" uuid="912bfd94-a525-4cf5-b73e-604821b5ed07"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{SoLuong}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0 ₫;(#,##0 ₫) ">
+				<reportElement x="424" y="0" width="100" height="43" uuid="d2614801-ff19-4f13-95ce-2dfce367d838"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TongTien}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0 ₫;(#,##0 ₫)">
+				<reportElement x="303" y="0" width="121" height="43" uuid="3744a2b8-e827-41c3-81e0-722f3db4739f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{GiaBan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="36" y="38" width="100" height="20" uuid="49bec7c2-d724-4276-8078-b051542a8e45"/>
+				<textElement>
+					<font fontName="Arial" isBold="true" pdfEncoding="Cp1258"/>
+				</textElement>
+				<text><![CDATA[Tổng tiền]]></text>
+			</staticText>
+			<textField pattern="#,##0 ₫;(#,##0 ₫) ">
+				<reportElement x="96" y="38" width="100" height="20" uuid="85f034db-9104-4af1-8c84-bc4e67cd3713"/>
+				<textElement>
+					<font fontName="Arial" pdfEncoding="Cp1258"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TongTienHoaDon}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="36" y="5" width="152" height="20" uuid="b6be8e68-4fb3-471d-ba4e-b8c19bfb9b04"/>
+				<textElement>
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Giá bán đã bao gồm thuế]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>
