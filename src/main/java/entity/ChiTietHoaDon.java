@@ -8,8 +8,7 @@ import java.io.Serializable;
 @NamedQueries({
         @NamedQuery(name = "ChiTietHoaDon.getAllCTHD", query = "select cthd from ChiTietHoaDon cthd"),
         @NamedQuery(name = "ChiTietHoaDon.getChiTietByMaHD", query = "select cthd from ChiTietHoaDon cthd where cthd.hoaDon.maHoaDon = :maHoaDon"),
-        @NamedQuery(name = "ChiTietHoaDon.getTongTienHoaDon", query = "select sum(cthd.giaBan * cthd.soLuong) from ChiTietHoaDon cthd where cthd.hoaDon.maHoaDon = :maHoaDon"),
-        @NamedQuery(name = "ChiTietHoaDon.getTopSanPhamBanChay", query = "select cthd.sanPham.maSanPham, sum(cthd.giaBan * cthd.soLuong) from ChiTietHoaDon cthd join cthd.hoaDon hd WHERE hd.ngayLap BETWEEN :fromDate AND :endDate group by cthd.sanPham.maSanPham order by sum(cthd.giaBan * cthd.soLuong) desc")
+        @NamedQuery(name = "ChiTietHoaDon.getTongTienHoaDon", query = "select sum(cthd.giaBan * cthd.soLuong) from ChiTietHoaDon cthd where cthd.hoaDon.maHoaDon = :maHoaDon")
 })
 public class ChiTietHoaDon implements Serializable {
     @Column(name = "SoLuong", columnDefinition = "int")
