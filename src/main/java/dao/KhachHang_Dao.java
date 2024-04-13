@@ -46,7 +46,8 @@ public class KhachHang_Dao {
     }
 
     public int checkSDT(String sdt) {
-        return em.createNamedQuery("KhachHang.checkSDT", Integer.class).setParameter("soDienThoai", sdt).getSingleResult();
+        Long count = em.createNamedQuery("KhachHang.checkSDT", Long.class).setParameter("soDienThoai", sdt).getSingleResult();
+        return count.intValue();
     }
 
     public int getSoLuongKH() {

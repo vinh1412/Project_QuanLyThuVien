@@ -62,7 +62,7 @@ public class SanPham_Dao {
     }
 
     public int getThuTuSP(){
-        return em.createNamedQuery("SanPham.count", Long.class).getSingleResult().intValue();
+        return em.createNamedQuery("SanPham.count", Long.class).getSingleResult().intValue()+1;
     }
     public List<SanPham> locSanPham(NhaCungCap nhaCungCap, TacGia tacGia, DanhMuc danhMuc, TheLoai theLoai) {
         String jpql="SELECT sp FROM SanPham sp JOIN NhaCungCap n ON sp.nhaCungCap.maNhaCungCap = n.maNhaCungCap JOIN TheLoai tl ON sp.theLoai.maTheLoai = tl.maTheLoai JOIN DanhMuc d ON tl.danhMuc.maDanhMuc = d.maDanhMuc WHERE 1 = 1";
@@ -100,7 +100,7 @@ public class SanPham_Dao {
 
     public static void main(String[] args) {
         SanPham_Dao spDao = new SanPham_Dao();
-        SanPham sp = spDao.getSanPhamTheoMa("SP-00");
-        System.out.println(sp.getTenSanPham());
+        SanPham sps = spDao.getSanPhamTheoMa("SP-01");
+        System.out.println(sps);
     }
 }

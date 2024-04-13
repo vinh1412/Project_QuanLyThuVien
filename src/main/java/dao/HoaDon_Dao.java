@@ -16,7 +16,8 @@ public class HoaDon_Dao {
         em = Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
     }
     public int getThuTuHoaDon(){
-        return em.createNamedQuery("HoaDon.getThuTuHoaDon", Integer.class).getSingleResult();
+        Long count = em.createNamedQuery("HoaDon.getThuTuHoaDon", Long.class).getSingleResult();
+        return count.intValue();
     }
 
     public boolean themHoaDon(HoaDon hoaDon) {

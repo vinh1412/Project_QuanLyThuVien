@@ -29,7 +29,8 @@ public class NhaXuatBan_Dao {
         em = Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
     }
     public int getThuTuNXB() {
-        return em.createNamedQuery("NhaXuatBan.count", Integer.class).getSingleResult();
+        Long count = em.createNamedQuery("NhaXuatBan.count", Long.class).getSingleResult();
+        return count.intValue();
     }
     // Thêm nhà xuất bản vào CSDL
 

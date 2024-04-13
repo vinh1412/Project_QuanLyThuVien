@@ -49,7 +49,7 @@ public class GenerateID {
 
     public static String generateMaSP(int soThuTu) {
         // Tạo mã tác giả
-        String maSanPham = "SP-" + String.format("%02d", soThuTu);
+        String maSanPham = "SP-" + String.format("%02d", soThuTu+1);
 
         return maSanPham;
     }

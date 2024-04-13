@@ -75,55 +75,6 @@ public class ChiTietHoaDon_Dao {
         typedQuery.setMaxResults(limit);
         return typedQuery.getResultList();
     }
-//    public Map<String, Double> getTopSanPhamBanChay1(int limit, LocalDate date, LocalDate fromDate, LocalDate endDate){
-//        Map<String, Double> map=new HashMap<>();
-//        String jpql = "SELECT cthd.sanPham.maSanPham, SUM(cthd.giaBan * cthd.soLuong) FROM ChiTietHoaDon cthd JOIN cthd.hoaDon hd ";
-//
-//        if (date != null && fromDate == null) {
-//            jpql += "WHERE hd.ngayLap = :date ";
-//        }
-//        if (fromDate != null) {
-//            jpql += "WHERE hd.ngayLap BETWEEN :fromDate AND :endDate ";
-//        }
-//
-//        jpql += "GROUP BY cthd.sanPham.maSanPham " +
-//                "ORDER BY SUM(cthd.giaBan * cthd.soLuong) DESC";
-//        TypedQuery<Object[]> typedQuery = em.createQuery(jpql, Object[].class);
-//        if (date != null) {
-//            typedQuery.setParameter("date", java.sql.Date.valueOf(date));
-//        }
-//        if (fromDate != null && endDate != null) {
-//            typedQuery.setParameter("fromDate", java.sql.Date.valueOf(fromDate));
-//            typedQuery.setParameter("endDate", java.sql.Date.valueOf(endDate));
-//        };
-//        typedQuery.setMaxResults(limit);
-//        for (Object[] o : typedQuery.getResultList()) {
-//            map.put((String) o[0], (Double) o[1]);
-//        }
-//        return map;
-//    }
-//    public Map<String, Double> getTopSanPhamBanChay2(Date localDate){
-//        String jpql = "SELECT cthd.sanPham.maSanPham, SUM(cthd.giaBan * cthd.soLuong) FROM ChiTietHoaDon cthd JOIN cthd.hoaDon hd " +
-//                "WHERE hd.ngayLap = :ngayLap " +
-//                "GROUP BY cthd.sanPham.maSanPham " +
-//                "ORDER BY SUM(cthd.giaBan * cthd.soLuong) DESC";
-//        TypedQuery<Object[]> typedQuery = em.createQuery(jpql, Object[].class);
-//        int year = localDate.getYear() - 1900;
-//        int month = localDate.getMonth() - 1;
-//        int day = localDate.getDay();
-//        localDate = new Date(localDate.getYear()-1900, localDate.getMonth()-1, localDate.getDate());
-//        LocalDate date = localDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        date.format(formatter);
-//        System.out.println(date.toString());
-//        typedQuery.setParameter("ngayLap", java.sql.Date.valueOf(date));
-//        typedQuery.setMaxResults(3);
-//        Map<String, Double> map = new HashMap<>();
-//        for (Object[] o : typedQuery.getResultList()) {
-//            map.put((String) o[0], (Double) o[1]);
-//        }
-//        return map;
-//    }
     public static void main(String[] args) {
         testGetTopSanPhamBanChay();
     }

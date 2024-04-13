@@ -31,7 +31,7 @@ public class TacGia_Dao {
     }
 
     public int getThuTuTacGia() {
-        return em.createNamedQuery("TacGia.count", Integer.class).getSingleResult();
+        return em.createNamedQuery("TacGia.count", Long.class).getSingleResult().intValue();
     }
 
     public boolean themTacGia(TacGia tg) {

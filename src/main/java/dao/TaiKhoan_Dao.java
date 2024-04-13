@@ -56,6 +56,7 @@ public class TaiKhoan_Dao {
     }
     public static void main(String[] args) {
         TaiKhoan_Dao tkd = new TaiKhoan_Dao();
-        boolean kq=tkd.themTaiKhoan(new NhanVien("NV-0309"));
+        TaiKhoan tk = tkd.getTaiKhoanByTen("0356309561");
+        System.out.println(tk);
     }
 }

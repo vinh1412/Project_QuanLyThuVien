@@ -105,12 +105,12 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
         Hashtable map = new Hashtable();
         JasperReport report;
         try {
-            report = JasperCompileManager.compileReport("src/Report/hoaDon.jrxml");
+            report = JasperCompileManager.compileReport("src/main/java/report/hoaDon.jrxml");
             map.put("maHD", maHD);
             java.sql.Connection conn = ConnectDB.getConnection();
             JasperPrint p = JasperFillManager.fillReport(report, map, conn);
-            JasperExportManager.exportReportToHtmlFile(p, "src/ReportImg/" + maHD + ".html");
-            File file = new File("src/ReportImg/" + maHD + ".html");
+            JasperExportManager.exportReportToHtmlFile(p, "src/main/java/reportImg/" + maHD + ".html");
+            File file = new File("src/main/java/reportImg/" + maHD + ".html");
             if (Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();
 
@@ -792,33 +792,35 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
         if (soLuong != null) {
             try {
                 int quantity = Integer.parseInt(soLuong);
+                System.out.println(quantity);
                 if (quantity == 0 || quantity < 0) {
+                    NotifyToast.showErrorToast("Số lượng sản phẩm phải lớn hơn 0");
                     return;
                 }
                 
                 Object value = tbl_dsSP.getValueAt(selectedRow, 0);
+                System.out.println(value);
                 String firstCellValue = String.valueOf(value);
+                System.out.println(firstCellValue);
                 SanPham i = sanPham_Bus.getSanPhamTheoMa(firstCellValue);
-                 
-//                SanPham i = listSP.get(selectedRow);
-
-                i.setSoLuongTon(quantity);
+                System.out.println(i.getSoLuongTon());
                 boolean setSuccess = setQuantitySP(i.getMaSanPham(), quantity);
+                System.out.println(i.getSoLuongTon());
                 if (setSuccess) {
+                    SanPham cartItem=new SanPham(i.getMaSanPham(), i.getTenSanPham(), i.getGiaMua(),i.getSoLuongTon(), i.getVat());
+                    cartItem.setSoLuongTon(quantity);
                     boolean tonTai = false;
                     for (SanPham j : gioHang) {
-                        if (j.getMaSanPham().equals(i.getMaSanPham())) {
-                            j.setSoLuongTon(j.getSoLuongTon() + i.getSoLuongTon());
+                        if (j.getMaSanPham().equals(cartItem.getMaSanPham())) {
+                            j.setSoLuongTon(j.getSoLuongTon() + quantity);
                             tonTai = true;
                             break;
                         }
                     }
                     if (!tonTai) {
-                        gioHang.add(i);
-                        renderDataToCart();
-                    } else {
-                        renderDataToCart();
+                        gioHang.add(cartItem);
                     }
+                    renderDataToCart();
                     timKiemSanPham();
                 } else {
                     NotifyToast.showErrorToast("Không đủ số lượng sản phẩm");

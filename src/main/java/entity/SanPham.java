@@ -54,6 +54,14 @@ public class SanPham implements Serializable {
         this.maSanPham = maSanPham;
     }
 
+    public SanPham(String maSanPham, String tenSanPham, double giaMua, int soLuongTon, double vat) {
+        this.maSanPham = maSanPham;
+        this.tenSanPham = tenSanPham;
+        this.giaMua = giaMua;
+        this.soLuongTon = soLuongTon;
+        this.vat = vat;
+    }
+
     public SanPham(String maSanPham, String tenSanPham, double giaMua, String hinhAnh, NhaCungCap nhaCungCap, TacGia tacGia, int soTrang, TheLoai theLoai, String moTaSanPham, NhaXuatBan nhaXuatBan, int soLuongTon, double vat) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
