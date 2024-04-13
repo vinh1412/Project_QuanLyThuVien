@@ -50,7 +50,8 @@ public class KhachHang_Dao {
     }
 
     public int getSoLuongKH() {
-        return em.createNamedQuery("KhachHang.count", Integer.class).getSingleResult();
+        Long count = em.createNamedQuery("KhachHang.count", Long.class).getSingleResult();
+        return count.intValue();
     }
 
 
@@ -100,21 +101,5 @@ public class KhachHang_Dao {
     //TIM THEO TEN
     public KhachHang getKhachHangByTen(String tenKhachHang) {
         return em.createNamedQuery("KhachHang.findKHByTenKH", KhachHang.class).setParameter("tenKH", tenKhachHang).getSingleResult();
-    }
-
-    public static void main(String[] args) {
-        KhachHang_Dao khachHang_dao = new KhachHang_Dao();
-        KhachHang kh = new KhachHang();
-//        panel_QuanLyKhachHang panel_QuanLyKhachHang = new panel_QuanLyKhachHang(true);
-//        kh.setMaKhachHang(panel_QuanLyKhachHang.generateCustomerCode());
-        Date date = new Date();
-//        kh.setMaKhachHang(GenerateID.generateMaKH(10,));
-        kh.setGioiTinh(0);
-        kh.setTenKhachHang("Nguyễn Văn B");
-        kh.setSoDienThoai("0123456799");
-        kh.setNgaySinh(new Date());
-        kh.setDiemDoiThuong(0);
-        Boolean result = khachHang_dao.themKhachHang(kh);
-        System.out.println(result);
     }
 }

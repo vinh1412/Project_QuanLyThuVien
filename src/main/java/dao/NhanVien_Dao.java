@@ -84,7 +84,7 @@ public class NhanVien_Dao {
 //        return n > 0;
 //    }
         public int checkSDT(String sdt) {
-            return em.createNamedQuery("NhanVien.checkSDT", Integer.class).setParameter("soDienThoai", sdt).getSingleResult();
+            return em.createNamedQuery("NhanVien.checkSDT",Integer.class).setParameter("soDienThoai", sdt).getSingleResult();
         }
 //    public int checkSDT(String sdt) {
 //        ConnectDB.getInstance();
@@ -116,7 +116,8 @@ public class NhanVien_Dao {
 
     // Lấy số lượng nhan vien
     public int getSoLuongNV() {
-        return em.createNamedQuery("NhanVien.countNV", Integer.class).getSingleResult();
+        Long count = em.createNamedQuery("NhanVien.countNV", Long.class).getSingleResult();
+        return count.intValue();
     }
 //    public int getSoLuongNV() {
 //        int soLuong = 0;

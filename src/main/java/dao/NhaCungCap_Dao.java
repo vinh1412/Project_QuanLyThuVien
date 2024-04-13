@@ -28,7 +28,8 @@ public class NhaCungCap_Dao {
     }
 
     public int getThuTuNCC(){
-        return em.createNamedQuery("NhaCungCap.countNCC", Integer.class).getSingleResult();
+        Long count = em.createNamedQuery("NhaCungCap.countNCC", Long.class).getSingleResult();
+        return count.intValue();
     }
 //    public int getThuTuNCC() throws SQLException {
 //        Connection conn;
