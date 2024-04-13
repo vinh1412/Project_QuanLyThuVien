@@ -15,6 +15,7 @@ import utils.getCommonIcons;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.ActionEvent;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
@@ -49,7 +50,7 @@ public final class panel_QuanLyNhaXuatBan extends javax.swing.JPanel {
     }
 
     public void renderDataToTable() {
-        ArrayList<NhaXuatBan> dsNhaXuatBan = nxb_Bus.getAllNXB();
+        List<NhaXuatBan> dsNhaXuatBan = nxb_Bus.getAllNXB();
         DefaultTableModel tbl_Model_DSTG = (DefaultTableModel) table_dsNXB.getModel();
         tbl_Model_DSTG.setRowCount(0);
         for (NhaXuatBan nxb : dsNhaXuatBan) {
@@ -61,7 +62,7 @@ public final class panel_QuanLyNhaXuatBan extends javax.swing.JPanel {
         DefaultTableModel tbl_Model_DSTG = (DefaultTableModel) table_dsNXB.getModel();
         tbl_Model_DSTG.setRowCount(0);
         String queryParams = txt_timKiem.getText();
-        ArrayList<NhaXuatBan> dsNXB = nxb_Bus.timKiemNXB(queryParams);
+        List<NhaXuatBan> dsNXB = nxb_Bus.timKiemNXB(queryParams);
         for (NhaXuatBan nxb : dsNXB) {
             tbl_Model_DSTG.addRow(new Object[]{nxb.getMaNhaXuatBan(), nxb.getTenNhaXuatBan(), nxb.getSoDienThoai(), nxb.getDiaChiNXB()});
         }

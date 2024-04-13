@@ -2,12 +2,22 @@ package entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class KhachHang {
+@NamedQueries({
+        @NamedQuery(name = "KhachHang.findAll", query = "SELECT kh FROM KhachHang kh"),
+        @NamedQuery(name = "KhachHang.find", query = "SELECT kh FROM KhachHang kh WHERE (LOWER(kh.maKhachHang)) like LOWER(:maKH) OR (LOWER(kh.tenKhachHang)) like LOWER(:tenKH) OR kh.soDienThoai like :sdt"),
+        @NamedQuery(name = "KhachHang.count", query = "SELECT COUNT(kh) FROM KhachHang kh"),
+        @NamedQuery(name="KhachHang.checkSDT", query = "SELECT (count(kh)) FROM KhachHang kh WHERE kh.soDienThoai = :soDienThoai"),
+        @NamedQuery(name = "KhachHang.findKHByMaKH", query = "SELECT kh FROM KhachHang kh WHERE kh.maKhachHang = :maKH"),
+        @NamedQuery(name = "KhachHang.findKHByTenKH", query = "SELECT kh FROM KhachHang kh WHERE kh.tenKhachHang = :tenKH"),
+        @NamedQuery(name = "KhachHang.findKHBySDT", query = "SELECT kh FROM KhachHang kh WHERE kh.soDienThoai = :sdt"),
+})
+public class KhachHang implements Serializable {
     @Id
     @Column(name = "MaKhachHang", columnDefinition = "nchar(15)")
     private String maKhachHang;

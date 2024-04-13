@@ -4,6 +4,7 @@ import dao.TacGia_Dao;
 import entity.TacGia;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TacGia_Bus {
 
@@ -25,11 +26,11 @@ public class TacGia_Bus {
         return tg_Dao.updateTacGia(tg);
     }
     
-    public ArrayList<TacGia> getAllTacGia() {
+    public List<TacGia> getAllTacGia() {
         return tg_Dao.getAllTacGia();
     }
     
-    public ArrayList<TacGia> timKiemTacGia(String queryParams) {
+    public List<TacGia> timKiemTacGia(String queryParams) {
         return tg_Dao.timKiemTacGia(queryParams);
     }
 }

@@ -2,11 +2,17 @@ package entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class NhaXuatBan {
+@NamedQueries({
+        @NamedQuery(name = "NhaXuatBan.findAll", query = "SELECT nxb FROM NhaXuatBan nxb"),
+        @NamedQuery(name = "NhaXuatBan.find",query = "SELECT nxb FROM NhaXuatBan nxb WHERE (LOWER(nxb.maNhaXuatBan)) like LOWER(:maNXB) OR (LOWER(nxb.tenNhaXuatBan)) like LOWER(:tenNXB) OR nxb.soDienThoai like :sdt"),
+        @NamedQuery(name = "NhaXuatBan.count", query = "SELECT COUNT(nxb) FROM NhaXuatBan nxb")
+})
+public class NhaXuatBan implements Serializable {
     @Id
     @Column(name = "MaNhaXuatBan", columnDefinition = "nchar(15)")
     private String maNhaXuatBan;

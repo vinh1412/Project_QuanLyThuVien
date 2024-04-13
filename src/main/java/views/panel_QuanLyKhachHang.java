@@ -17,6 +17,7 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
@@ -181,7 +182,7 @@ public class panel_QuanLyKhachHang extends javax.swing.JPanel {
 
     // Doc du lieu tu sql vao table
     private void DocDuLieuTuSQLVaoTable() {
-        ArrayList<KhachHang> dsKH = khachHangDao.getAllKhachHang();
+        List<KhachHang> dsKH = khachHangDao.getAllKhachHang();
 
         for (KhachHang kh : dsKH) {
             model.addRow(getObjectKH(kh));
@@ -191,7 +192,7 @@ public class panel_QuanLyKhachHang extends javax.swing.JPanel {
     //tim
     public void Tim() {
         String thongTinTim = txt_timKiem.getText().trim();
-        ArrayList<KhachHang> danhSachKhachHang;
+        List<KhachHang> danhSachKhachHang;
         try {
             int stt = 0;
             XoaHetDuLieuTrenTable();

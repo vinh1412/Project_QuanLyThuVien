@@ -4,6 +4,7 @@ import dao.NhaXuatBan_Dao;
 import entity.NhaXuatBan;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class NhaXuatBan_Bus {
 
@@ -25,11 +26,11 @@ public class NhaXuatBan_Bus {
         return nxb_Dao.updateNXB(nxb);
     }
     
-    public ArrayList<NhaXuatBan> getAllNXB() {
+    public List<NhaXuatBan> getAllNXB() {
         return nxb_Dao.getAllNXB();
     }
     
-    public ArrayList<NhaXuatBan> timKiemNXB(String queryParams) {
+    public List<NhaXuatBan> timKiemNXB(String queryParams) {
         return nxb_Dao.timKiemNXB(queryParams);
     }
 }

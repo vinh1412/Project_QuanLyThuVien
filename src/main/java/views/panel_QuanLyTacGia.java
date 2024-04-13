@@ -8,6 +8,7 @@ import bus.TacGia_Bus;
 import entity.TacGia;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -37,7 +38,7 @@ public final class panel_QuanLyTacGia extends javax.swing.JPanel {
     }
 
     public void renderDataToTable() {
-        ArrayList<TacGia> dsTacGia = tg_Bus.getAllTacGia();
+        List<TacGia> dsTacGia = tg_Bus.getAllTacGia();
         DefaultTableModel tbl_Model_DSTG = (DefaultTableModel) table_dsTG.getModel();
         tbl_Model_DSTG.setRowCount(0);
         for (TacGia tacGia : dsTacGia) {
@@ -142,7 +143,7 @@ public final class panel_QuanLyTacGia extends javax.swing.JPanel {
         DefaultTableModel tbl_Model_DSTG = (DefaultTableModel) table_dsTG.getModel();
         tbl_Model_DSTG.setRowCount(0);
         String queryParams = txt_timKiem.getText();
-        ArrayList<TacGia> dsTG = tg_Bus.timKiemTacGia(queryParams);
+        List<TacGia> dsTG = tg_Bus.timKiemTacGia(queryParams);
         for (TacGia tacGia : dsTG) {
             String gioiTinh = tacGia.getGioiTinh() == 0 ? "Nam" : "Nữ";
             tbl_Model_DSTG.addRow(new Object[]{tacGia.getMaTacGia(), tacGia.getTenTacGia(), tacGia.getSoDienThoai(), gioiTinh});
