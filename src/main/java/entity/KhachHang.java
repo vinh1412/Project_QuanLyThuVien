@@ -33,7 +33,7 @@ public class KhachHang implements Serializable {
     private int diemDoiThuong;
 
     //Tạo quan hệ 1-n với bảng HoaDon
-    @OneToMany(mappedBy = "khachHang", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "khachHang", fetch = FetchType.EAGER)
     private Set<HoaDon> hoaDons;
     public KhachHang() {
     }

@@ -1,40 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
-import connectDB.ConnectDB;
+import bus.NhaXuatBan_Bus;
 import entity.NhaXuatBan;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
-import java.util.ArrayList;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-/**
- *
- * @author PC
- */
-public class NhaXuatBan_Dao {
+public class NhaXuatBan_Dao extends UnicastRemoteObject implements NhaXuatBan_Bus {
 
     private EntityManager em;
-    public NhaXuatBan_Dao() {
+    public NhaXuatBan_Dao() throws RemoteException {
         em = Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
     }
-    public int getThuTuNXB() {
+    @Override
+    public int getThuTuNXB() throws RemoteException {
         Long count = em.createNamedQuery("NhaXuatBan.count", Long.class).getSingleResult();
         return count.intValue();
     }
     // Thêm nhà xuất bản vào CSDL
 
-    public boolean themNXB(NhaXuatBan nxb) {
+    @Override
+    public boolean themNXB(NhaXuatBan nxb) throws RemoteException {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -49,7 +39,8 @@ public class NhaXuatBan_Dao {
     }
 
     // Sửa thông tin nhà xuất bản trong CSDL
-    public boolean updateNXB(NhaXuatBan nxb) {
+    @Override
+    public boolean updateNXB(NhaXuatBan nxb) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -64,15 +55,17 @@ public class NhaXuatBan_Dao {
     }
 
     // Tìm kiếm nhà xuất bản trong CSDL
-    public List<NhaXuatBan> timKiemNXB(String searchTerm) {
+    @Override
+    public List<NhaXuatBan> timKiemNXB(String queryParams) throws RemoteException{
         return  em.createNamedQuery("NhaXuatBan.find", NhaXuatBan.class)
-                .setParameter("maNXB", "%" + searchTerm + "%")
-                .setParameter("tenNXB", "%" + searchTerm + "%")
-                .setParameter("sdt", "%" + searchTerm + "%")
+                .setParameter("maNXB", "%" + queryParams + "%")
+                .setParameter("tenNXB", "%" + queryParams + "%")
+                .setParameter("sdt", "%" + queryParams + "%")
                 .getResultList();
     }
 
-    public List<NhaXuatBan> getAllNXB() {
+    @Override
+    public List<NhaXuatBan> getAllNXB() throws RemoteException{
         return em.createNamedQuery("NhaXuatBan.findAll", NhaXuatBan.class).getResultList();
     }
 

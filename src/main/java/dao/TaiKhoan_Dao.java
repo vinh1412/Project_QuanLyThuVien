@@ -4,28 +4,34 @@
  */
 package dao;
 
+import bus.TaiKhoan_Bus;
 import entity.TaiKhoan;
 import entity.NhanVien;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
-public class TaiKhoan_Dao {
+public class TaiKhoan_Dao extends UnicastRemoteObject implements TaiKhoan_Bus {
     private EntityManager em;
 
-    public TaiKhoan_Dao() {
-        em= Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
+    public TaiKhoan_Dao() throws RemoteException {
+        em = Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
     }
 
-    public TaiKhoan getTaiKhoanByTen(String tenDn) {
+    @Override
+    public TaiKhoan getTaiKhoanByTen(String tenDn) throws RemoteException {
         return (TaiKhoan) em.createNamedQuery("TaiKhoan.findByTenTaiKhoan").setParameter("tenTaiKhoan", tenDn).getSingleResult();
     }
-    public boolean themTaiKhoan(NhanVien nv) {
+
+    @Override
+    public boolean themTaiKhoan(NhanVien nv) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -39,7 +45,9 @@ public class TaiKhoan_Dao {
         }
         return false;
     }
-    public boolean updateMatKhau(String tenTaiKhoan, String matKhau) {
+
+    @Override
+    public boolean updateMatKhau(String tenTaiKhoan, String matKhau) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -53,10 +61,5 @@ public class TaiKhoan_Dao {
             e.printStackTrace();
         }
         return false;
-    }
-    public static void main(String[] args) {
-        TaiKhoan_Dao tkd = new TaiKhoan_Dao();
-        TaiKhoan tk = tkd.getTaiKhoanByTen("0356309561");
-        System.out.println(tk);
     }
 }

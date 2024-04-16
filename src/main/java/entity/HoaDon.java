@@ -22,18 +22,18 @@ public class HoaDon implements Serializable {
     private Date ngayLap;
 
     //Tạo quan hệ n-1 với bảng KhachHang
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MaKhachHang")
     private KhachHang khachHang;
 
     //Tạo quan hệ n-1 với bảng NhanVien
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MaNhanVien")
     private NhanVien nhanVien;
     @Column(name = "GiamGia", columnDefinition = "float")
     private double giamGia;
 
-    @OneToMany(mappedBy = "hoaDon", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hoaDon", fetch = FetchType.EAGER)
     private Set<ChiTietHoaDon> chiTietHoaDons;
 
     public HoaDon() {

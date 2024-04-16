@@ -4,34 +4,28 @@
  */
 package dao;
 
-import connectDB.ConnectDB;
+import bus.KhachHang_Bus;
 import entity.KhachHang;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
-import utils.GenerateID;
-import views.panel_QuanLyKhachHang;
 
-import java.sql.PreparedStatement;
-import java.sql.Connection;
-import java.util.Date;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class KhachHang_Dao {
+public class KhachHang_Dao extends UnicastRemoteObject implements KhachHang_Bus {
 
     private EntityManager em;
 
-    public KhachHang_Dao() {
+    public KhachHang_Dao() throws RemoteException {
         em = Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
     }
 
     //them khach hang
-    public boolean themKhachHang(KhachHang khachHang) {
+    @Override
+    public boolean themKhachHang(KhachHang khachHang) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -45,22 +39,25 @@ public class KhachHang_Dao {
         return false;
     }
 
-    public int checkSDT(String sdt) {
+    @Override
+    public int checkSDT(String sdt) throws RemoteException {
         Long count = em.createNamedQuery("KhachHang.checkSDT", Long.class).setParameter("soDienThoai", sdt).getSingleResult();
         return count.intValue();
     }
 
-    public int getSoLuongKH() {
+    @Override
+    public int getSoLuongKH() throws RemoteException{
         Long count = em.createNamedQuery("KhachHang.count", Long.class).getSingleResult();
         return count.intValue();
     }
 
-
-    public List<KhachHang> getAllKhachHang() {
+    @Override
+    public List<KhachHang> getAllKhachHang() throws RemoteException{
         return em.createNamedQuery("KhachHang.findAll", KhachHang.class).getResultList();
     }
 
-    public boolean capNhatKH(KhachHang kh) {
+    @Override
+    public boolean capNhatKH(KhachHang kh) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -74,7 +71,8 @@ public class KhachHang_Dao {
         return false;
     }
 
-    public List<KhachHang> timKhachHang(String thongTin) {
+    @Override
+    public List<KhachHang> timKhachHang(String thongTin) throws RemoteException{
         String thongTinLike = "%" + thongTin.toLowerCase() + "%";
         int gt = -1;
         if (thongTin.equalsIgnoreCase("Nam")) {
@@ -94,13 +92,15 @@ public class KhachHang_Dao {
         return query.getResultList();
     }
 
-    public KhachHang timKiemKhachHangTheoSDT(String sdt) {
+    @Override
+    public KhachHang timKiemKhachHangTheoSDT(String sdt) throws RemoteException{
         return em.createNamedQuery("KhachHang.findKHBySDT", KhachHang.class).setParameter("sdt", sdt).getSingleResult();
     }
 
 
     //TIM THEO TEN
-    public KhachHang getKhachHangByTen(String tenKhachHang) {
+    @Override
+    public KhachHang getKhachHangByTen(String tenKhachHang) throws RemoteException{
         return em.createNamedQuery("KhachHang.findKHByTenKH", KhachHang.class).setParameter("tenKH", tenKhachHang).getSingleResult();
     }
 }

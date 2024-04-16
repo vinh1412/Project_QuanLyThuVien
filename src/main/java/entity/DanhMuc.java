@@ -19,7 +19,7 @@ public class DanhMuc implements Serializable {
     @Column(name = "TenDanhMuc", columnDefinition = "nvarchar(255)")
     private String tenDanhMuc;
 
-    @OneToMany(mappedBy = "danhMuc", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "danhMuc", fetch = FetchType.EAGER)
     private Set<TheLoai> theLoais;
     public DanhMuc() {
     }

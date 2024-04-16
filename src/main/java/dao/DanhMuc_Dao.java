@@ -4,11 +4,14 @@
  */
 package dao;
 
+import bus.DanhMuc_Bus;
 import entity.DanhMuc;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,14 +24,15 @@ import java.util.List;
  *
  * @author PC
  */
-public class DanhMuc_Dao {
+public class DanhMuc_Dao extends UnicastRemoteObject implements DanhMuc_Bus {
     private EntityManager em;
 
-    public DanhMuc_Dao() {
+    public DanhMuc_Dao() throws RemoteException {
         em= Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
     }
 
-    public boolean themDanhMuc(String tenDanhMuc){
+    @Override
+    public boolean themDanhMuc(String tenDanhMuc) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -43,8 +47,8 @@ public class DanhMuc_Dao {
         }
         return false;
     }
-
-    public boolean updateDanhMuc(DanhMuc danhMuc) {
+    @Override
+    public boolean updateDanhMuc(DanhMuc danhMuc) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -57,13 +61,15 @@ public class DanhMuc_Dao {
         }
         return false;
     }
-    public List<DanhMuc> timKiemDanhMuc(String searchTerm){
+    @Override
+    public List<DanhMuc> timKiemDanhMuc(String searchTerm) throws RemoteException{
         return em.createNamedQuery("DanhMuc.findByTenDanhMuc", DanhMuc.class).setParameter("tenDanhMuc", "%"+searchTerm+"%").getResultList();
     }
-    public List<DanhMuc> getAllDanhMuc() {
+    @Override
+    public List<DanhMuc> getAllDanhMuc() throws RemoteException{
         return em.createNamedQuery("DanhMuc.findAll", DanhMuc.class).getResultList();
     }
-    public void close() {
+    public void close() throws RemoteException{
         em.close();
     }
 }

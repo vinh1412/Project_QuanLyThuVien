@@ -1,10 +1,13 @@
 package dao;
 
+import bus.NhaCungCap_Bus;
 import entity.NhaCungCap;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,19 +16,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NhaCungCap_Dao {
+public class NhaCungCap_Dao extends UnicastRemoteObject implements NhaCungCap_Bus {
     private EntityManager em;
 
-    public NhaCungCap_Dao() {
+    public NhaCungCap_Dao() throws RemoteException {
         em = Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
     }
 
-    public int getThuTuNCC(){
+    @Override
+    public int getThuTuNCC() throws RemoteException{
         Long count = em.createNamedQuery("NhaCungCap.countNCC", Long.class).getSingleResult();
         return count.intValue();
     }
     // Thêm nhà cung cấp vào CSDL
-    public boolean themNCC(NhaCungCap ncc) {
+    @Override
+    public boolean themNCC(NhaCungCap ncc) throws RemoteException {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -39,7 +44,8 @@ public class NhaCungCap_Dao {
         return false;
     }
     // Sửa thông tin nhà xuất bản trong CSDL
-    public boolean updateNCC(NhaCungCap ncc) {
+    @Override
+    public boolean updateNCC(NhaCungCap ncc) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -54,16 +60,18 @@ public class NhaCungCap_Dao {
     }
 
     // Tìm kiếm nhà xuất bản trong CSDL
-    public List<NhaCungCap> timKiemNCC(String searchTerm) {
+    @Override
+    public List<NhaCungCap> timKiemNCC(String queryParams) throws RemoteException{
         return em.createNamedQuery("NhaCungCap.find")
-                .setParameter("maNhaCungCap", "%" + searchTerm + "%")
-                .setParameter("tenNhaCungCap", "%" + searchTerm + "%")
-                .setParameter("diaChi", "%" + searchTerm + "%")
-                .setParameter("soDienThoai", "%" + searchTerm + "%")
+                .setParameter("maNhaCungCap", "%" + queryParams + "%")
+                .setParameter("tenNhaCungCap", "%" + queryParams + "%")
+                .setParameter("diaChi", "%" + queryParams + "%")
+                .setParameter("soDienThoai", "%" + queryParams + "%")
                 .getResultList();
     }
 
-    public List<NhaCungCap> getAllNCC() {
+    @Override
+    public List<NhaCungCap> getAllNCC() throws RemoteException{
         return em.createNamedQuery("NhaCungCap.findAll", NhaCungCap.class).getResultList();
     }
 }

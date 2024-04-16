@@ -2,35 +2,22 @@ package bus;
 
 import dao.NhaXuatBan_Dao;
 import entity.NhaXuatBan;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NhaXuatBan_Bus {
-
-    private final NhaXuatBan_Dao nxb_Dao;
-
-    public NhaXuatBan_Bus() {
-        nxb_Dao = new NhaXuatBan_Dao();
-    }
+public interface NhaXuatBan_Bus extends Remote {
     
-    public int getThuTuNXB() throws SQLException {
-        return nxb_Dao.getThuTuNXB();
-    }
+    public int getThuTuNXB() throws RemoteException;
     
-    public boolean themNXB(NhaXuatBan nxb) {
-        return nxb_Dao.themNXB(nxb);
-    }
+    public boolean themNXB(NhaXuatBan nxb) throws RemoteException;
     
-    public boolean updateNXB(NhaXuatBan nxb) {
-        return nxb_Dao.updateNXB(nxb);
-    }
+    public boolean updateNXB(NhaXuatBan nxb) throws RemoteException;
     
-    public List<NhaXuatBan> getAllNXB() {
-        return nxb_Dao.getAllNXB();
-    }
+    public List<NhaXuatBan> getAllNXB() throws RemoteException;
     
-    public List<NhaXuatBan> timKiemNXB(String queryParams) {
-        return nxb_Dao.timKiemNXB(queryParams);
-    }
+    public List<NhaXuatBan> timKiemNXB(String queryParams) throws RemoteException;
 }

@@ -23,7 +23,7 @@ public class NhaCungCap implements Serializable {
     @Column(name = "SoDienThoai", columnDefinition = "varchar(20)")
     private String soDienThoai;
 
-    @OneToMany(mappedBy = "nhaCungCap", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "nhaCungCap", fetch = FetchType.EAGER)
     private Set<SanPham> sanPhams;
     public NhaCungCap() {
     }

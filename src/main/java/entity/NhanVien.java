@@ -39,7 +39,7 @@ public class NhanVien implements Serializable {
     private Date ngayVaoLam;
 
     //Tạo quan hệ 1-n với bảng HoaDon
-    @OneToMany(mappedBy = "nhanVien")
+    @OneToMany(mappedBy = "nhanVien", fetch = FetchType.EAGER)
     private Set<HoaDon> hoaDons;
     public NhanVien() {
     }

@@ -23,7 +23,7 @@ public class TacGia implements Serializable {
     @Column(name = "GioiTinh", columnDefinition = "int")
     private int gioiTinh;
 
-    @OneToMany(mappedBy = "tacGia", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tacGia", fetch = FetchType.EAGER)
     private Set<SanPham> sanPhams;
     public TacGia() {
     }

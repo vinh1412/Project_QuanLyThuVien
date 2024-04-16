@@ -1,26 +1,31 @@
 package dao;
 
+import bus.HoaDon_Bus;
 import entity.HoaDon;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
 import java.util.List;
 
-public class HoaDon_Dao {
+public class HoaDon_Dao extends UnicastRemoteObject implements HoaDon_Bus {
     private EntityManager em;
 
-    public HoaDon_Dao() {
+    public HoaDon_Dao() throws RemoteException {
         em = Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
     }
-    public int getThuTuHoaDon(){
+
+    @Override
+    public int getThuTuHoaDon() throws RemoteException{
         Long count = em.createNamedQuery("HoaDon.getThuTuHoaDon", Long.class).getSingleResult();
         return count.intValue();
     }
-
-    public boolean themHoaDon(HoaDon hoaDon) {
+    @Override
+    public boolean themHD(HoaDon hoaDon) throws RemoteException {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -33,17 +38,18 @@ public class HoaDon_Dao {
         }
         return false;
     }
-
-    public List<HoaDon> getAllHD() {
+    @Override
+    public List<HoaDon> getAllHD() throws RemoteException{
         return em.createNamedQuery("HoaDon.getAllHoaDon", HoaDon.class).getResultList();
     }
-    public List<HoaDon> getAllHDByNhanVien(String maNV) {
+    @Override
+    public List<HoaDon> getHoaDonByNhanVien(String maNV) throws RemoteException{
         return em.createNamedQuery("HoaDon.getAllHDByNhanVien", HoaDon.class)
                 .setParameter("maNhanVien", maNV)
                 .getResultList();
     }
-
-    public List<HoaDon> getHoaDonByDateRange(Date fromDate, Date toDate, String maNV) {
+    @Override
+    public List<HoaDon> getHoaDonByDateRange(Date fromDate, Date toDate, String maNV) throws RemoteException{
         String jpql = "SELECT hd FROM HoaDon hd WHERE hd.ngayLap BETWEEN :fromDate AND :toDate";
         if (!maNV.isEmpty()) {
             jpql += " AND hd.nhanVien.maNhanVien = :maNV";
@@ -56,8 +62,8 @@ public class HoaDon_Dao {
         }
         return query.getResultList();
     }
-
-    public List<HoaDon> getHoaDonByDate(Date date, String maNV) {
+    @Override
+    public List<HoaDon> getHoaDonByDate(Date date, String maNV) throws RemoteException{
         String jpql = "SELECT hd FROM HoaDon hd WHERE hd.ngayLap = :date";
         if (!maNV.isEmpty()) {
             jpql += " AND hd.nhanVien.maNhanVien = :maNV";
@@ -69,7 +75,8 @@ public class HoaDon_Dao {
         }
         return query.getResultList();
     }
-    public List<HoaDon> getHoaDonByMonthYear(int month, int year, String maNV) {
+    @Override
+    public List<HoaDon> getHoaDonByMonthYear(int month, int year, String maNV) throws RemoteException{
         String jpql = "SELECT hd FROM HoaDon hd WHERE FUNCTION('YEAR', hd.ngayLap) = :year AND FUNCTION('MONTH', hd.ngayLap) = :month";
         if (!maNV.isEmpty()) {
             jpql += " AND hd.nhanVien.maNhanVien = :maNV";
@@ -82,17 +89,12 @@ public class HoaDon_Dao {
         }
         return query.getResultList();
     }
-
-    public List<HoaDon> timKiemHD(String query, String maNV) {
+    @Override
+    public List<HoaDon> timHoaDon(String query, String maNV) throws RemoteException{
         return em.createNamedQuery("HoaDon.findHoaDon", HoaDon.class)
                 .setParameter("query", "%" + query + "%")
                 .setParameter("maNV", "%" + maNV + "%")
                 .getResultList();
     }
 
-    public static void main(String[] args) {
-        HoaDon_Dao hoaDonDao=new HoaDon_Dao();
-        List<HoaDon> kq=hoaDonDao.timKiemHD("HD-13122306","NV-0804");
-        kq.forEach(hoaDon -> System.out.println(hoaDon));
-    }
 }

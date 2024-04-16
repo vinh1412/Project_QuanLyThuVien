@@ -18,11 +18,11 @@ public class TheLoai implements Serializable {
     private int maTheLoai;
     @Column(name = "TenTheLoai", columnDefinition = "nvarchar(255)")
     private String tenTheLoai;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MaDanhMuc")
     private DanhMuc danhMuc;
 
-    @OneToMany(mappedBy = "theLoai", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "theLoai", fetch = FetchType.EAGER)
     private Set<SanPham> sanPhams;
     public TheLoai() {
     }

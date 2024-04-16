@@ -1,22 +1,26 @@
 package dao;
 
 
+import bus.ChiTietHoaDon_Bus;
 import entity.ChiTietHoaDon;
 
 import jakarta.persistence.*;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class ChiTietHoaDon_Dao {
+public class ChiTietHoaDon_Dao extends UnicastRemoteObject implements ChiTietHoaDon_Bus {
     private EntityManager em;
 
-    public ChiTietHoaDon_Dao() {
+    public ChiTietHoaDon_Dao() throws RemoteException {
         em = Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
     }
-    public boolean themCTHD(ChiTietHoaDon chiTietHoaDon) {
+    @Override
+    public boolean themCTHD(ChiTietHoaDon chiTietHoaDon) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -30,19 +34,20 @@ public class ChiTietHoaDon_Dao {
         return false;
     }
 
-    public List<ChiTietHoaDon> getAllCTHD() {
+    @Override
+    public List<ChiTietHoaDon> getAllCTHD() throws RemoteException{
         return em.createNamedQuery("ChiTietHoaDon.getAllCTHD", ChiTietHoaDon.class).getResultList();
     }
-
-    public List<ChiTietHoaDon> getChiTietByMaHD(String maHoaDon) {
+    @Override
+    public List<ChiTietHoaDon> getChiTietByMa(String maHoaDon) throws RemoteException{
         return em.createNamedQuery("ChiTietHoaDon.getChiTietByMaHD", ChiTietHoaDon.class).setParameter("maHoaDon", maHoaDon).getResultList();
     }
-
-    public double getTongTienHoaDon(String maHD){
+    @Override
+    public double getTongTienHoaDon(String maHD)throws RemoteException{
         return em.createNamedQuery("ChiTietHoaDon.getTongTienHoaDon", Double.class).setParameter("maHoaDon", maHD).getSingleResult();
     }
-
-    public List<Object[]> getTopSanPhamBanChay(int limit, Date date, Date fromDate, Date endDate){
+    @Override
+    public List<Object[]> getSpBanChay(int limit, Date date, Date fromDate, Date endDate)throws RemoteException{
         String jpql = "SELECT cthd.sanPham.maSanPham, SUM(cthd.giaBan * cthd.soLuong) FROM ChiTietHoaDon cthd JOIN cthd.hoaDon hd ";
 
         if (date != null && fromDate == null) {
@@ -74,23 +79,5 @@ public class ChiTietHoaDon_Dao {
         };
         typedQuery.setMaxResults(limit);
         return typedQuery.getResultList();
-    }
-    public static void main(String[] args) {
-        testGetTopSanPhamBanChay();
-    }
-
-    public static void testGetTopSanPhamBanChay() {
-        // Khởi tạo HoaDonDao và các tham số cần thiết
-        ChiTietHoaDon_Dao hoaDonDao = new ChiTietHoaDon_Dao(); // Khởi tạo đối tượng HoaDonDao
-        int limit = 3; // Giới hạn số lượng sản phẩm được lấy
-        Date date =  null;// Ngày để lấy các hóa đơn
-        Date fromDate = new Date(2022, 7, 1);;// Ngày bắt đầu khoảng thời gian
-        Date endDate = new Date(2022, 7, 31);; // Ngày kết thúc khoảng thời gian
-        // Gọi phương thức getTopSanPhamBanChay
-       List<Object[]> map = hoaDonDao.getTopSanPhamBanChay(limit, date, fromDate, endDate);
-            // In ra màn hình
-            for (Object[] o : map) {
-                System.out.println("Mã sản phẩm: " + o[0] + ", Doanh thu: " + o[1]);
-            }
     }
 }

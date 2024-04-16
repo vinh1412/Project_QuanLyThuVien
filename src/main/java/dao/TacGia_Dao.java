@@ -4,12 +4,14 @@
  */
 package dao;
 
-import connectDB.ConnectDB;
+import bus.TacGia_Bus;
 import entity.TacGia;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,19 +24,21 @@ import java.util.List;
  *
  * @author PC
  */
-public class TacGia_Dao {
+public class TacGia_Dao extends UnicastRemoteObject implements TacGia_Bus {
 
     private EntityManager em;
 
-    public TacGia_Dao() {
+    public TacGia_Dao() throws RemoteException {
         em = Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
     }
 
-    public int getThuTuTacGia() {
+    @Override
+    public int getThuTuTacGia() throws RemoteException{
         return em.createNamedQuery("TacGia.count", Long.class).getSingleResult().intValue();
     }
 
-    public boolean themTacGia(TacGia tg) {
+    @Override
+    public boolean themTacGia(TacGia tg) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -47,8 +51,8 @@ public class TacGia_Dao {
         }
         return false;
     }
-
-    public boolean updateTacGia(TacGia tg) {
+    @Override
+    public boolean updateTacGia(TacGia tg) throws RemoteException{
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -61,12 +65,13 @@ public class TacGia_Dao {
         }
         return false;
     }
-
-    public List<TacGia> getAllTacGia() {
+    @Override
+    public List<TacGia> getAllTacGia() throws RemoteException{
         return em.createNamedQuery("TacGia.findAll", TacGia.class).getResultList();
     }
 
-    public List<TacGia> timKiemTacGia(String queryParams) {
+    @Override
+    public List<TacGia> timKiemTacGia(String queryParams) throws RemoteException{
         return em.createNamedQuery("TacGia.find", TacGia.class)
                 .setParameter("maTG", "%" + queryParams + "%")
                 .setParameter("tenTG", "%" + queryParams + "%")
