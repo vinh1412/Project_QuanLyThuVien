@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.raven.main;
 
 import bus.ChiTietHoaDon_Bus;
 import bus.HoaDon_Bus;
 import entity.HoaDon;
+import utils.RMIServiceURL;
 import views.Application;
 import com.raven.chart.ModelChart;
 import java.awt.Color;
@@ -23,12 +19,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author RAVEN
- */
+
 public class ChartUI extends javax.swing.JFrame {
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     /**
      * Creates new form Main
      */

@@ -6,10 +6,9 @@
 package com.raven.main;
 
 import bus.ChiTietHoaDon_Bus;
-import bus.HoaDon_Bus;
-import entity.HoaDon;
-import views.Application;
 import com.raven.chart.ModelChart;
+import utils.RMIServiceURL;
+
 import java.awt.Color;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -27,21 +26,19 @@ import java.util.logging.Logger;
  *
  * @author RAVEN
  */
-public class ChartUIKhoangNgay extends javax.swing.JFrame {
-    private boolean isNVQL;
-    /**
+public class ChartUISanPham extends javax.swing.JFrame {
+
+/**
      * Creates new form Main
      */
-    private final HoaDon_Bus hoaDon_Bus;
     private final ChiTietHoaDon_Bus cthd_Bus;
-    private static final String URL = "rmi://localhost:5151/";
-    public ChartUIKhoangNgay(boolean isNVQL) throws SQLException, RemoteException, MalformedURLException, NotBoundException {
-        hoaDon_Bus = (HoaDon_Bus) Naming.lookup(URL + "HoaDon");
+    private static final String URL = RMIServiceURL.getDefaultURL();
+    public ChartUISanPham() throws SQLException, RemoteException, MalformedURLException, NotBoundException {
         cthd_Bus = (ChiTietHoaDon_Bus) Naming.lookup(URL + "ChiTietHoaDon");
-        this.isNVQL = isNVQL;
         initComponents();
         getContentPane().setBackground(new Color(250, 250, 250));
         chart.addLegend("Doanh thu (VND)", new Color(245, 189, 135));
+        renderUI(jdc_date.getDate());
 //        chart.addData(new ModelChart("January", new double[]{500, 200, 80,89}));
 //        chart.addData(new ModelChart("February", new double[]{600, 750, 90,150}));
 //        chart.addData(new ModelChart("March", new double[]{200, 350, 460,900}));
@@ -50,20 +47,15 @@ public class ChartUIKhoangNgay extends javax.swing.JFrame {
 //        chart.addData(new ModelChart("June", new double[]{190, 280, 81,200}));
     }
 
-    private void renderUI() throws SQLException, RemoteException {
-        double tongTien = 0;
+    private void renderUI(Date date) throws SQLException, RemoteException {
         chart.refresh();
         chart.repaint();
         chart.revalidate();
-        String maNV = isNVQL ? "" : Application.getTK().getNhanVien().getMaNhanVien();
-        List<HoaDon> dsHD = hoaDon_Bus.getHoaDonByDateRange(jdc_begin.getDate(), jdc_end.getDate(), maNV);
-        for (HoaDon j : dsHD) {
-            tongTien += cthd_Bus.getTongTienHoaDon(j.getMaHoaDon()) - j.getGiamGia();
+        List<Object[]> obj = cthd_Bus.getSpBanChay(5, null, null, null);
+        for (Object[] i : obj) {
+            chart.addData(new ModelChart((String) i[0], new double[]{(double) i[1]}));
         }
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String title = "Từ: " + dateFormat.format(jdc_begin.getDate()) + " -> " + dateFormat.format(jdc_end.getDate());
-        chart.addData(new ModelChart(title, new double[]{tongTien}));
     }
 
     /**
@@ -76,22 +68,17 @@ public class ChartUIKhoangNgay extends javax.swing.JFrame {
     private void initComponents() {
 
         chart = new com.raven.chart.Chart();
-        lbl_begin = new javax.swing.JLabel();
-        jdc_begin = new com.toedter.calendar.JDateChooser();
-        lbl_end = new javax.swing.JLabel();
-        jdc_end = new com.toedter.calendar.JDateChooser();
-        btn_thongKe = new javax.swing.JButton();
+        lbl_date = new javax.swing.JLabel();
+        jdc_date = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(585, 382));
 
-        lbl_begin.setText("Từ: ");
+        lbl_date.setText("Chọn ngày:");
 
-        lbl_end.setText("Đến:");
-
-        btn_thongKe.setText("Thống kê");
-        btn_thongKe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_thongKeActionPerformed(evt);
+        jdc_date.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdc_datePropertyChange(evt);
             }
         });
 
@@ -101,47 +88,39 @@ public class ChartUIKhoangNgay extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(chart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lbl_begin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jdc_begin, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(lbl_end, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jdc_end, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119)
-                .addComponent(btn_thongKe)
+                .addContainerGap()
+                .addComponent(lbl_date)
+                .addGap(18, 18, 18)
+                .addComponent(jdc_date, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbl_end, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jdc_end, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jdc_begin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbl_begin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_thongKe, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addGap(25, 25, 25)
+                    .addComponent(jdc_date, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(lbl_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(chart, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_thongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_thongKeActionPerformed
+    private void jdc_datePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdc_datePropertyChange
         try {
             // TODO add your handling code here:
-            renderUI();
+
+            renderUI(jdc_date.getDate());
         } catch (SQLException ex) {
-            Logger.getLogger(ChartUIKhoangNgay.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ChartUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
-    }//GEN-LAST:event_btn_thongKeActionPerformed
+    }//GEN-LAST:event_jdc_datePropertyChange
 
     /**
      * @param args the command line arguments
@@ -182,11 +161,8 @@ public class ChartUIKhoangNgay extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_thongKe;
     private com.raven.chart.Chart chart;
-    private com.toedter.calendar.JDateChooser jdc_begin;
-    private com.toedter.calendar.JDateChooser jdc_end;
-    private javax.swing.JLabel lbl_begin;
-    private javax.swing.JLabel lbl_end;
+    private com.toedter.calendar.JDateChooser jdc_date;
+    private javax.swing.JLabel lbl_date;
     // End of variables declaration//GEN-END:variables
 }

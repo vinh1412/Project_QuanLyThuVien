@@ -8,6 +8,7 @@ import bus.NhanVien_Bus;
 import bus.TaiKhoan_Bus;
 import entity.NhanVien;
 import utils.NotifyToast;
+import utils.RMIServiceURL;
 import utils.getCommonIcons;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.ActionEvent;
@@ -32,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class panel_QuanLyNhanVien extends javax.swing.JPanel {
 
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     private final NhanVien_Bus nhanVien_Bus;
     private final DefaultTableModel model;
     private Timer debounce;

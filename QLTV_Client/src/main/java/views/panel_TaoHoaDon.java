@@ -11,6 +11,7 @@ import entity.NhanVien;
 import entity.SanPham;
 import utils.GenerateID;
 import utils.NotifyToast;
+import utils.RMIServiceURL;
 import utils.getCommonIcons;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Desktop;
@@ -40,7 +41,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
 public class panel_TaoHoaDon extends javax.swing.JPanel {
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     private final SanPham_Bus sanPham_Bus;
     private Timer debounce;
     private JdialogHangChoHD hangChoView;

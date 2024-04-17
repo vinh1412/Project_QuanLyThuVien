@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
 
 import bus.KhachHang_Bus;
 import entity.KhachHang;
 import utils.NotifyToast;
+import utils.RMIServiceURL;
 import utils.getCommonIcons;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.ActionEvent;
@@ -29,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class panel_QuanLyKhachHang extends javax.swing.JPanel {
 
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     private final KhachHang_Bus khachHangBus;
     private final DefaultTableModel model;
     private final boolean internal;

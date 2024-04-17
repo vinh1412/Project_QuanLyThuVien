@@ -22,10 +22,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-/**
- *
- * @author Raven
- */
+
 public class mainViewNVBH extends JLayeredPane {
     private TaiKhoan tk;
     public mainViewNVBH() {

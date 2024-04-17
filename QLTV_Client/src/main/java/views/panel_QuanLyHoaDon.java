@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
 
 import bus.ChiTietHoaDon_Bus;
@@ -9,6 +5,7 @@ import bus.HoaDon_Bus;
 import bus.NhanVien_Bus;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import utils.RMIServiceURL;
 import utils.getCommonIcons;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.ActionEvent;
@@ -24,13 +21,10 @@ import java.util.logging.Logger;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ngoct
- */
+
 public class panel_QuanLyHoaDon extends javax.swing.JPanel {
 
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     private final HoaDon_Bus hoaDon_Bus;
     private final NhanVien_Bus nhanVien_Bus;
     private final ChiTietHoaDon_Bus cthd_Bus;

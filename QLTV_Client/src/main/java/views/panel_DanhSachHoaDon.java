@@ -5,6 +5,7 @@ import bus.HoaDon_Bus;
 import bus.NhanVien_Bus;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import utils.RMIServiceURL;
 import utils.getCommonIcons;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.ActionEvent;
@@ -21,7 +22,7 @@ import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 public class panel_DanhSachHoaDon extends javax.swing.JPanel {
 
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     private final HoaDon_Bus hoaDon_Bus;
     private final NhanVien_Bus nhanVien_Bus;
     private final ChiTietHoaDon_Bus cthd_Bus;

@@ -3,6 +3,7 @@ package views;
 import bus.TaiKhoan_Bus;
 import entity.TaiKhoan;
 import utils.NotifyToast;
+import utils.RMIServiceURL;
 import views.components.LoginForm;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
@@ -21,7 +22,7 @@ import raven.toast.Notifications;
 
 public class Application extends javax.swing.JFrame {
 
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     private static String sdtKH;
     private static Application app;
     private final mainViewNVBH mainForm;

@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package views;
 
 import utils.NotifyToast;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ngoct
- */
+
 public class JdialogHangChoHD extends javax.swing.JDialog {
 
     private final ArrayList<Object[]> dsHDCho;

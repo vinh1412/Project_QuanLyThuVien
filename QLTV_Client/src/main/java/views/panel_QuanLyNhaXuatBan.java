@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
 
 import bus.NhaXuatBan_Bus;
@@ -16,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import utils.GenerateID;
 import utils.NotifyToast;
+import utils.RMIServiceURL;
 import utils.getCommonIcons;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.ActionEvent;
@@ -25,13 +22,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
 
-/**
- *
- * @author PC
- */
+
 public final class panel_QuanLyNhaXuatBan extends javax.swing.JPanel {
 
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     private Timer debounce;
     /**
      * Creates new form panel_QuanLyKhachHang

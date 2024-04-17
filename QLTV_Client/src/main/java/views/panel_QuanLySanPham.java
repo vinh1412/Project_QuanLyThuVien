@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views;
 
 import bus.DanhMuc_Bus;
@@ -18,6 +14,7 @@ import entity.TacGia;
 import entity.TheLoai;
 import utils.GenerateID;
 import utils.NotifyToast;
+import utils.RMIServiceURL;
 import utils.getCommonIcons;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Image;
@@ -41,7 +38,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class panel_QuanLySanPham extends javax.swing.JPanel {
 
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     private final SanPham_Bus sanPham_Bus;
     private Timer debounce;
     private final DefaultTableModel model;

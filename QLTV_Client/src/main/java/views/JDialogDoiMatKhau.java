@@ -3,6 +3,7 @@ package views;
 import bus.TaiKhoan_Bus;
 import utils.NotifyToast;
 import com.formdev.flatlaf.FlatClientProperties;
+import utils.RMIServiceURL;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -11,7 +12,7 @@ import java.rmi.RemoteException;
 
 public class JDialogDoiMatKhau extends javax.swing.JDialog {
 
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     /**
      * Creates new form JDialogDoiMatKhau
      *

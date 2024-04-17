@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package views;
 
 import bus.TaiKhoan_Bus;
@@ -13,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 
 import api.speedsms.vn.SpeedSMSAPI;
 import com.formdev.flatlaf.FlatClientProperties;
+import utils.RMIServiceURL;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,12 +21,10 @@ import java.util.Random;
 import java.util.TimerTask;
 import javax.swing.Timer;
 
-/**
- * @author PC
- */
+
 public class JDialogLayLaiMatKhau extends javax.swing.JDialog {
 
-    private static final String URL = "rmi://localhost:5151/";
+    private static final String URL = RMIServiceURL.getDefaultURL();
     private String OTP;
     private Timer debounce;
     private Timer countdownTimer;
