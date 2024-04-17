@@ -10,7 +10,7 @@ public class getCommonIcons {
      public static Icon addIcon() {
          Color lightColor = FlatUIUtils.getUIColor("Menu.icon.lightColor", Color.red);
         Color darkColor = FlatUIUtils.getUIColor("Menu.icon.darkColor", Color.red);
-        FlatSVGIcon icon = new FlatSVGIcon("/img/svgIcon/add-icon.svg");
+        FlatSVGIcon icon = new FlatSVGIcon("/src/main/java/Img/svgIcon/add-icon.svg");
         FlatSVGIcon.ColorFilter f = new FlatSVGIcon.ColorFilter();
         f.add(Color.decode("#969696"), lightColor, darkColor);
         icon.setColorFilter(f);
@@ -46,7 +46,7 @@ public class getCommonIcons {
      public static Icon queueIcon() {
          Color lightColor = FlatUIUtils.getUIColor("Menu.icon.lightColor", Color.red);
         Color darkColor = FlatUIUtils.getUIColor("Menu.icon.darkColor", Color.red);
-        FlatSVGIcon icon = new FlatSVGIcon("src/main/java/Img/svgIcon/queue.svg");
+        FlatSVGIcon icon = new FlatSVGIcon("src/main/java/img/svgIcon/queue.svg");
         FlatSVGIcon.ColorFilter f = new FlatSVGIcon.ColorFilter();
         f.add(Color.decode("#969696"), lightColor, darkColor);
         icon.setColorFilter(f);
