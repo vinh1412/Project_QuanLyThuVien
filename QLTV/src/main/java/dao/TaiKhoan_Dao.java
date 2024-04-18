@@ -13,10 +13,6 @@ import jakarta.persistence.Persistence;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
 
 public class TaiKhoan_Dao extends UnicastRemoteObject implements TaiKhoan_Bus {
     private EntityManager em;

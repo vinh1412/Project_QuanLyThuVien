@@ -54,7 +54,6 @@ public class NhaXuatBan_Dao extends UnicastRemoteObject implements NhaXuatBan_Bu
         return false;
     }
 
-    // Tìm kiếm nhà xuất bản trong CSDL
     @Override
     public List<NhaXuatBan> timKiemNXB(String queryParams) throws RemoteException{
         return  em.createNamedQuery("NhaXuatBan.find", NhaXuatBan.class)
