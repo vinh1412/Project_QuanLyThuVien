@@ -2,6 +2,7 @@ package views;
 
 import bus.KhachHang_Bus;
 import entity.KhachHang;
+import utils.IconUtils;
 import utils.NotifyToast;
 import utils.RMIServiceURL;
 import utils.getCommonIcons;
@@ -77,9 +78,9 @@ public class panel_QuanLyKhachHang extends javax.swing.JPanel {
     }
 
     private void customInitComponent() {
-        btn_them.setIcon(getCommonIcons.addIcon());
-        btn_capNhat.setIcon(getCommonIcons.updateIcon());
-        btn_lamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/META-INF/img/svgIcon/refresh1.png")));
+        btn_them.setIcon(IconUtils.addIcon());
+        btn_capNhat.setIcon(IconUtils.updateIcon());
+        btn_lamMoi.setIcon(IconUtils.refreshIcon());
         txt_timKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         debounce = new Timer(300, (ActionEvent e) -> {
             // Timer action: Perform search after debounce time

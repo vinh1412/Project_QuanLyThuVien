@@ -5,6 +5,7 @@ import bus.HoaDon_Bus;
 import bus.NhanVien_Bus;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import utils.IconUtils;
 import utils.RMIServiceURL;
 import utils.getCommonIcons;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -56,8 +57,8 @@ public class panel_QuanLyHoaDon extends javax.swing.JPanel {
      */
     private void customInitComponents() {
         txt_timKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
-        btn_loc.setIcon(getCommonIcons.filterIcon());
-        btn_lamMoi.setIcon(getCommonIcons.refreshIcon());
+        btn_loc.setIcon(IconUtils.filterIcon());
+        btn_lamMoi.setIcon(IconUtils.refreshIcon());
         debounce = new Timer(300, (ActionEvent e) -> {
             try {
                 // Timer action: Perform search after debounce time

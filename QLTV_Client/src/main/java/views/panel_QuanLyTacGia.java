@@ -13,10 +13,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import utils.GenerateID;
-import utils.NotifyToast;
-import utils.RMIServiceURL;
-import utils.getCommonIcons;
+
+import utils.*;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.ActionEvent;
 import javax.swing.Timer;
@@ -48,9 +46,9 @@ public final class panel_QuanLyTacGia extends javax.swing.JPanel {
 
     private void customInitComponents() {
         txt_timKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
-        btn_them.setIcon(getCommonIcons.addIcon());
-        btn_capNhat.setIcon(getCommonIcons.updateIcon());
-        btn_lamMoi.setIcon(getCommonIcons.refreshIcon());
+        btn_them.setIcon(IconUtils.addIcon());
+        btn_capNhat.setIcon(IconUtils.updateIcon());
+        btn_lamMoi.setIcon(IconUtils.refreshIcon());
         debounce = new Timer(300, (ActionEvent e) -> {
             // Timer action: Perform search after debounce time
             try {

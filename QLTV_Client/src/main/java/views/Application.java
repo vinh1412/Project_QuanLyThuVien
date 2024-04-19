@@ -9,6 +9,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,6 +19,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
 import raven.toast.Notifications;
 
 public class Application extends javax.swing.JFrame {
@@ -32,15 +34,10 @@ public class Application extends javax.swing.JFrame {
     private static TaiKhoan tk;
     private static panel_TaoHoaDon viewTaoHoaDon;
     private static panel_QuanLySanPham viewQLSP;
-//    Type 0 -> QL, 1 -> BH
+    //    Type 0 -> QL, 1 -> BH
     private static int type;
 
     public Application() throws RemoteException, MalformedURLException, NotBoundException {
-//        try {
-//            ConnectDB.getInstance().connect();
-//        } catch (java.sql.SQLException e) {
-//            // TODO: handle exception
-//        }
         tk_Bus = (TaiKhoan_Bus) Naming.lookup(URL + "TaiKhoan");
         initComponents();
         setSize(new Dimension(1366, 768));
@@ -53,23 +50,23 @@ public class Application extends javax.swing.JFrame {
         setContentPane(loginForm);
         Notifications.getInstance().setJFrame(this);
     }
-    
+
     public static TaiKhoan getTK() {
         return tk;
     }
-    
-    public static void setSTDKH (String sdt) {
+
+    public static void setSTDKH(String sdt) {
         sdtKH = sdt;
     }
-    
+
     public static String getSTDKH() {
         return sdtKH;
     }
-    
+
     public static panel_TaoHoaDon getViewTaoHD() {
         return viewTaoHoaDon;
     }
-    
+
     public static panel_QuanLySanPham getViewTQLSP() {
         return viewQLSP;
     }
@@ -89,26 +86,26 @@ public class Application extends javax.swing.JFrame {
             NotifyToast.showErrorToast("Tài khoản không tồn tại");
         } else {
             if (tk.getMatKhau().equals(password)) {
-            FlatAnimatedLafChange.showSnapshot();
-            if (tk.getRole().equals("QL")) {
-                type = 0;
-                app.setContentPane(app.mainForm1);
-                app.mainForm1.applyComponentOrientation(app.getComponentOrientation());
-                setSelectedMenu(0, 0);
-                app.mainForm1.hideMenu();
-                SwingUtilities.updateComponentTreeUI(app.mainForm1);
-            } else if (tk.getRole().equals("BH")) {
-                type = 1;
-                app.setContentPane(app.mainForm);
-                app.mainForm.applyComponentOrientation(app.getComponentOrientation());
-                setSelectedMenu(0, 0);
-                app.mainForm.hideMenu();
-                SwingUtilities.updateComponentTreeUI(app.mainForm);
+                FlatAnimatedLafChange.showSnapshot();
+                if (tk.getRole().equals("QL")) {
+                    type = 0;
+                    app.setContentPane(app.mainForm1);
+                    app.mainForm1.applyComponentOrientation(app.getComponentOrientation());
+                    setSelectedMenu(0, 0);
+                    app.mainForm1.hideMenu();
+                    SwingUtilities.updateComponentTreeUI(app.mainForm1);
+                } else if (tk.getRole().equals("BH")) {
+                    type = 1;
+                    app.setContentPane(app.mainForm);
+                    app.mainForm.applyComponentOrientation(app.getComponentOrientation());
+                    setSelectedMenu(0, 0);
+                    app.mainForm.hideMenu();
+                    SwingUtilities.updateComponentTreeUI(app.mainForm);
+                }
+                FlatAnimatedLafChange.hideSnapshotWithAnimation();
+            } else {
+                NotifyToast.showErrorToast("Thông tin tài khoản không hợp lệ");
             }
-            FlatAnimatedLafChange.hideSnapshotWithAnimation();
-        } else {
-            NotifyToast.showErrorToast("Thông tin tài khoản không hợp lệ");
-        }
         }
     }
 
@@ -138,12 +135,12 @@ public class Application extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 719, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 521, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 521, Short.MAX_VALUE)
         );
 
         pack();
@@ -167,7 +164,4 @@ public class Application extends javax.swing.JFrame {
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
 }

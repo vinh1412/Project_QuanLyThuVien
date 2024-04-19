@@ -9,10 +9,7 @@ import entity.HoaDon;
 import entity.KhachHang;
 import entity.NhanVien;
 import entity.SanPham;
-import utils.GenerateID;
-import utils.NotifyToast;
-import utils.RMIServiceURL;
-import utils.getCommonIcons;
+import utils.*;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -1094,12 +1091,12 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
     private void customInitComponents() {
         txt_timKiemSP.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập mã sản phẩm, tên sản phẩm");
         txt_timKiemKH.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập số điện thoại khách hàng");
-        btn_themSP.setIcon(getCommonIcons.addIcon());
-        btn_lamMoiSP.setIcon(getCommonIcons.refreshIcon());
-        btn_taoHD.setIcon(getCommonIcons.addIcon());
-        btn_hangCho.setIcon(getCommonIcons.queueIcon());
-        btn_themKH.setIcon(getCommonIcons.addIcon());
-        btn_lamMoiKH.setIcon(getCommonIcons.refreshIcon());
+        btn_themSP.setIcon(IconUtils.addIcon());
+        btn_lamMoiSP.setIcon(IconUtils.refreshIcon());
+        btn_taoHD.setIcon(IconUtils.addIcon());
+        btn_hangCho.setIcon(IconUtils.queueIcon());
+        btn_themKH.setIcon(IconUtils.addIcon());
+        btn_lamMoiKH.setIcon(IconUtils.refreshIcon());
         debounce = new Timer(300, (ActionEvent e) -> {
             // Timer action: Perform search after debounce time
             timKiemSanPham();

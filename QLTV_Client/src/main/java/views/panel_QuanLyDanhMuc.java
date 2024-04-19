@@ -4,6 +4,7 @@ import bus.DanhMuc_Bus;
 import bus.TheLoai_Bus;
 import entity.DanhMuc;
 import entity.TheLoai;
+import utils.IconUtils;
 import utils.NotifyToast;
 import utils.RMIServiceURL;
 import utils.getCommonIcons;
@@ -41,9 +42,9 @@ public final class panel_QuanLyDanhMuc extends javax.swing.JPanel {
 
     private void customInitComponents() {
         txt_TimKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm");
-        btnCapNhat.setIcon(getCommonIcons.updateIcon());
-        btnThem.setIcon(getCommonIcons.addIcon());
-        btn_lamMoi.setIcon(getCommonIcons.refreshIcon());
+        btnCapNhat.setIcon(IconUtils.updateIcon());
+        btnThem.setIcon(IconUtils.addIcon());
+        btn_lamMoi.setIcon(IconUtils.refreshIcon());
         debounce = new Timer(300, (ActionEvent e) -> {
             // Timer action: Perform search after debounce time
             try {

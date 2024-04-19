@@ -12,10 +12,7 @@ import entity.NhaXuatBan;
 import entity.SanPham;
 import entity.TacGia;
 import entity.TheLoai;
-import utils.GenerateID;
-import utils.NotifyToast;
-import utils.RMIServiceURL;
-import utils.getCommonIcons;
+import utils.*;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -55,10 +52,10 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
 
     private void customInitComponents() {
         txt_timKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm Kiếm...");
-        btn_them.setIcon(getCommonIcons.addIcon());
-        btn_capNhat.setIcon(getCommonIcons.updateIcon());
-        btn_lamMoi.setIcon(getCommonIcons.refreshIcon());
-        btn_locSP.setIcon(getCommonIcons.filterIcon());
+        btn_them.setIcon(IconUtils.addIcon());
+        btn_capNhat.setIcon(IconUtils.updateIcon());
+        btn_lamMoi.setIcon(IconUtils.refreshIcon());
+        btn_locSP.setIcon(IconUtils.filterIcon());
         table_dsSP.setAutoCreateRowSorter(true);
         debounce = new Timer(300, (ActionEvent e) -> {
             // Timer action: Perform search after debounce time
@@ -722,7 +719,7 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
             }
         });
 
-//        lbl_HinhAnhView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/no_image.png"))); // NOI18N
+//        lbl_HinhAnhView.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/java/img/no_image.png"))); // NOI18N
         lbl_HinhAnhView.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         lbl_HinhAnhView.setMinimumSize(new java.awt.Dimension(200, 100));
         lbl_HinhAnhView.setPreferredSize(new java.awt.Dimension(200, 100));

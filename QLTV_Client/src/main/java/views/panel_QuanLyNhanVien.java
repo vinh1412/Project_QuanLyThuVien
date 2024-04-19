@@ -7,6 +7,7 @@ package views;
 import bus.NhanVien_Bus;
 import bus.TaiKhoan_Bus;
 import entity.NhanVien;
+import utils.IconUtils;
 import utils.NotifyToast;
 import utils.RMIServiceURL;
 import utils.getCommonIcons;
@@ -27,8 +28,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class panel_QuanLyNhanVien extends javax.swing.JPanel {
@@ -48,10 +48,10 @@ public class panel_QuanLyNhanVien extends javax.swing.JPanel {
 
     private void customInitComponents() {
         txt_timKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm Kiếm...");
-        btn_them.setIcon(getCommonIcons.addIcon());
-        btn_capNhat.setIcon(getCommonIcons.updateIcon());
-        btn_lamMoi.setIcon(getCommonIcons.refreshIcon());
-        btn_loc.setIcon(getCommonIcons.filterIcon());
+        btn_them.setIcon(IconUtils.addIcon());
+        btn_capNhat.setIcon(IconUtils.updateIcon());
+        btn_lamMoi.setIcon(IconUtils.refreshIcon());
+        btn_loc.setIcon(IconUtils.filterIcon());
         cld_ngayVaoLam.setEnabled(false);
         debounce = new Timer(300, (ActionEvent e) -> {
             // Timer action: Perform search after debounce time

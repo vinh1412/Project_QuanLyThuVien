@@ -4,17 +4,8 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.RenderingHints;
-import java.awt.Shape;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Path2D;
 import java.net.MalformedURLException;
@@ -23,9 +14,7 @@ import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  *
@@ -84,27 +73,42 @@ public class MenuItem extends JPanel {
     private Icon getIcon() {
         Color lightColor = FlatUIUtils.getUIColor("Menu.icon.lightColor", Color.red);
         Color darkColor = FlatUIUtils.getUIColor("Menu.icon.darkColor", Color.red);
-         FlatSVGIcon icon;
+//         FlatSVGIcon icon;
+         ImageIcon icon;
        if (!isNVQL) {
-           String path= "/img/svgIcon/" + menuIndex + ".svg";
-                icon = new FlatSVGIcon(path);
+           String path= "src/main/java/img/svgIcon/" + menuIndex + ".png";
+//                icon = new FlatSVGIcon(path);
 //            icon = new FlatSVGIcon("/Img/svgIcon/" + menuIndex + ".svg");
+           icon=new ImageIcon(path);
+           Image image = icon.getImage();
+           Image scaledImage = image.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH);
+           icon.setImage(scaledImage);
        }
        else {
+           String path= "src/main/java/img/svgIcon/ql_" + menuIndex + ".png";
+//                icon = new FlatSVGIcon(path);
+//            icon = new FlatSVGIcon("/Img/svgIcon/" + menuIndex + ".svg");
+           icon=new ImageIcon(path);
+           Image image = icon.getImage();
+           Image scaledImage = image.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH);
+           icon.setImage(scaledImage);
 //           icon=new FlatSVGIcon(URI.create("src/main/java/Img/svgIcon/ql_" + menuIndex + ".svg"));
-            icon = new FlatSVGIcon("src/main/java/Img/svgIcon/ql_" + menuIndex + ".svg");
+//            icon = new FlatSVGIcon("src/main/java/img/svgIcon/ql_" + menuIndex + ".svg");
+//              icon=new ImageIcon(getClass().getResource("src/main/java/img/svgIcon/ql_" + menuIndex + ".png"));
        }
-        FlatSVGIcon.ColorFilter f = new FlatSVGIcon.ColorFilter();
-        f.add(Color.decode("#969696"), lightColor, darkColor);
-        icon.setColorFilter(f);
+//        FlatSVGIcon.ColorFilter f = new FlatSVGIcon.ColorFilter();
+//        f.add(Color.decode("#969696"), lightColor, darkColor);
+//        icon.setColorFilter(f);
         return icon;
     }
 
     private void init() {
         setLayout(new MenuLayout());
+        Color color=new Color(22, 121, 171);
+//        setBackground(Color.BLUE);
         putClientProperty(FlatClientProperties.STYLE, ""
-                + "background:$Menu.background;"
-                + "foreground:$Menu.lineColor");
+                + "background:"+colorToHexString(color)+";"//$Menu.background
+                + "foreground:"+colorToHexString(Color.WHITE));//$Menu.lineColor
         for (int i = 0; i < menus.length; i++) {
             JButton menuItem = createButtonItem(menus[i]);
             menuItem.setHorizontalAlignment(menuItem.getComponentOrientation().isLeftToRight() ? JButton.LEADING : JButton.TRAILING);
@@ -121,11 +125,11 @@ public class MenuItem extends JPanel {
                         try {
                             menu.runEvent(menuIndex, 0);
                         } catch (RemoteException ex) {
-                            throw new RuntimeException(ex);
+                            ex.printStackTrace();
                         } catch (MalformedURLException ex) {
-                            throw new RuntimeException(ex);
+                            ex.printStackTrace();
                         } catch (NotBoundException ex) {
-                            throw new RuntimeException(ex);
+                            ex.printStackTrace();
                         }
                     }
                 });
@@ -166,11 +170,17 @@ public class MenuItem extends JPanel {
 
     private JButton createButtonItem(String text) {
         JButton button = new JButton(text);
+        Color color=new Color(22, 121, 171);
+        button.setBackground(color);
+        button.setForeground(Color.WHITE);
+
+        Color color1=new Color(23, 107, 135);
+        Color color2=new Color(218, 255, 251);
         button.putClientProperty(FlatClientProperties.STYLE, ""
-                + "background:$Menu.background;"
-                + "foreground:$Menu.foreground;"
-                + "selectedBackground:$Menu.button.selectedBackground;"
-                + "selectedForeground:$Menu.button.selectedForeground;"
+//                + "background:$Menu.background;"
+//                + "foreground:$Menu.foreground;"
+                + "selectedBackground:"+colorToHexString(color1)+";" //$Menu.button.selectedBackground
+                + "selectedForeground:"+colorToHexString(color2)+";"
                 + "borderWidth:0;"
                 + "focusWidth:0;"
                 + "innerFocusWidth:0;"
@@ -180,6 +190,9 @@ public class MenuItem extends JPanel {
         return button;
     }
 
+    private static String colorToHexString(Color color) {
+        return String.format("#%06X", (0xFFFFFF & color.getRGB()));
+    }
     public void hideMenuItem() {
         animate = 0;
         menuShow = false;

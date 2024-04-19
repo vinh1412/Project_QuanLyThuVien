@@ -12,6 +12,7 @@ import entity.NhaXuatBan;
 import entity.SanPham;
 import entity.TacGia;
 import entity.TheLoai;
+import utils.IconUtils;
 import utils.RMIServiceURL;
 import utils.getCommonIcons;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -58,8 +59,8 @@ public class panel_QuanLySanPham_NVBH extends javax.swing.JPanel {
 
     private void customInitComponents() {
         txt_timKiem.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm Kiếm...");
-        btn_locSP.setIcon(getCommonIcons.filterIcon());
-        btn_lamMoi.setIcon(getCommonIcons.refreshIcon());
+        btn_locSP.setIcon(IconUtils.filterIcon());
+        btn_lamMoi.setIcon(IconUtils.refreshIcon());
         table_dsSP.setAutoCreateRowSorter(true);
         debounce = new Timer(300, (ActionEvent e) -> {
             // Timer action: Perform search after debounce time

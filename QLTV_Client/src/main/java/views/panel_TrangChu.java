@@ -25,13 +25,13 @@ public class panel_TrangChu extends javax.swing.JPanel {
 
         lblLogo.setBackground(new java.awt.Color(255, 255, 255));
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogo.setIcon(new javax.swing.ImageIcon("src/main/java/Img/bg-small.jpg")); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon("src/main/java/img/bg-small.jpg")); // NOI18N
         lblLogo.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         lblLogo.setOpaque(true);
         lblLogo.setPreferredSize(new java.awt.Dimension(400, 140));
         add(lblLogo, java.awt.BorderLayout.PAGE_START);
 
-        lblNen.setIcon(new javax.swing.ImageIcon("src/main/java/Img/bg-large.jpg")); // NOI18N
+        lblNen.setIcon(new javax.swing.ImageIcon("src/main/java/img/bg-large.jpg")); // NOI18N
         add(lblNen, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 

@@ -4,13 +4,8 @@ import entity.TaiKhoan;
 import views.components.Menu;
 import views.components.MenuAction;
 import com.formdev.flatlaf.util.UIScale;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.LayoutManager;
+
+import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.rmi.NotBoundException;

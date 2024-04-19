@@ -4,11 +4,8 @@ import views.components.Theme.ToolBarAccentColor;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.LayoutManager;
+
+import java.awt.*;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -97,24 +94,30 @@ public class Menu extends JPanel {
         init();
     }
 
+    private static String colorToHexString(Color color) {
+        return String.format("#%06X", (0xFFFFFF & color.getRGB()));
+    }
     private void init() {
         setLayout(new MenuLayout());
+        Color color1=new Color(22, 121, 171);
         putClientProperty(FlatClientProperties.STYLE, ""
                 + "border:20,2,2,2;"
-                + "background:$Menu.background;"
+                + "background:"+colorToHexString(color1)+";"//$Menu.background
                 + "arc:10");
         header = new JLabel(headerName);
         header.setIcon(new ImageIcon("src/main/java/Img/svgIcon/logo.png"));
         header.putClientProperty(FlatClientProperties.STYLE, ""
-                + "font:$Menu.header.font;"
-                + "foreground:$Menu.foreground");
-
+                + "font:<b>$Menu.header.font<b>;"
+                + "foreground:"+colorToHexString(Color.WHITE));//$Menu.header.foreground);
+        header.setText("<html><b>H2TD</b></html>");
         //  Menu
         scroll = new JScrollPane();
         panelMenu = new JPanel(new MenuItemLayout(this));
+        Color color=new Color(22, 121, 171);
+        panelMenu.setBackground(color);
         panelMenu.putClientProperty(FlatClientProperties.STYLE, ""
-                + "border:5,5,5,5;"
-                + "background:$Menu.background");
+                + "border:5,5,5,5;");
+//                + "background:$Menu.background");
 
         scroll.setViewportView(panelMenu);
         scroll.putClientProperty(FlatClientProperties.STYLE, ""
@@ -123,9 +126,9 @@ public class Menu extends JPanel {
         vscroll.setUnitIncrement(10);
 //        vscroll.putClientProperty(FlatClientProperties.STYLE, ""
 //                + "width:$Menu.scroll.width;"
-//                + "trackInsets:$Menu.scroll.trackInsets;"
-//                + "thumbInsets:$Menu.scroll.thumbInsets;"
-//                + "background:$Menu.ScrollBar.background;"
+////                + "trackInsets:$Menu.scroll.trackInsets;"
+////                + "thumbInsets:$Menu.scroll.thumbInsets;"
+////                + "background:$Menu.ScrollBar.background;"
 //                + "thumb:$Menu.ScrollBar.thumb");
         createMenu();
         toolBarAccentColor = new ToolBarAccentColor(this);
@@ -153,7 +156,7 @@ public class Menu extends JPanel {
         JLabel lbTitle = new JLabel(menuName);
         lbTitle.putClientProperty(FlatClientProperties.STYLE, ""
                 + "font:$Menu.label.font;"
-                + "foreground:$Menu.title.foreground");
+                + "foreground:"+colorToHexString(Color.lightGray));//$Menu.title.foreground
         return lbTitle;
     }
 
