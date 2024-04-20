@@ -22,7 +22,7 @@ import java.rmi.registry.LocateRegistry;
  * @version:    1.0
  */
 public class Server {
-        private static final String URL = "rmi://Vinh:5151/";
+        private static final String URL = "rmi://192.168.1.29:5151/";
         public static void main(String[] args) throws NamingException, RemoteException {
             Context context = new InitialContext();
             ChiTietHoaDon_Bus chiTietHoaDon_Bus = new ChiTietHoaDon_Dao();
