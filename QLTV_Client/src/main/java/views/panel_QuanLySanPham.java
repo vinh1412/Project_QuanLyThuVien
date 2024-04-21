@@ -719,7 +719,7 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
             }
         });
 
-//        lbl_HinhAnhView.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/java/img/no_image.png"))); // NOI18N
+        lbl_HinhAnhView.setIcon(IconUtils.createScaledIcon("src/main/java/img/no_image.png",100,100)); // NOI18N
         lbl_HinhAnhView.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         lbl_HinhAnhView.setMinimumSize(new java.awt.Dimension(200, 100));
         lbl_HinhAnhView.setPreferredSize(new java.awt.Dimension(200, 100));
@@ -1000,7 +1000,7 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) { // Check for double click
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setCurrentDirectory(new File("src\\Img"));
+            fileChooser.setCurrentDirectory(new File("src\\main\\java\\img\\"));
 
             int result = fileChooser.showOpenDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {

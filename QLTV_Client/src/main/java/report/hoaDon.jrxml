@@ -100,31 +100,31 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT 
-    dbo.ChiTietHoaDon.SoLuong, 
-    dbo.ChiTietHoaDon.GiaBan, 
-    dbo.SanPham.TenSanPham, 
+		<![CDATA[SELECT
+    dbo.ChiTietHoaDon.SoLuong,
+    dbo.ChiTietHoaDon.GiaBan,
+    dbo.SanPham.TenSanPham,
     dbo.NhanVien.TenNhanVien,
     dbo.HoaDon.MaHoaDon,
     dbo.HoaDon.GiamGia,
-    CASE 
+    CASE
         WHEN dbo.HoaDon.MaKhachHang IS NOT NULL THEN dbo.KhachHang.TenKhachHang
         ELSE NULL
     END AS TenKhachHang,
     dbo.HoaDon.NgayLap,
     (dbo.ChiTietHoaDon.SoLuong * dbo.ChiTietHoaDon.GiaBan) as TongTien,
     (SUM((dbo.ChiTietHoaDon.SoLuong * dbo.ChiTietHoaDon.GiaBan)) OVER (PARTITION BY dbo.ChiTietHoaDon.MaHoaDon) - dbo.HoaDon.GiamGia) as TongTienHoaDon
-FROM     
-    dbo.ChiTietHoaDon 
+FROM
+    dbo.ChiTietHoaDon
 INNER JOIN
-    dbo.HoaDon ON dbo.ChiTietHoaDon.MaHoaDon = dbo.HoaDon.MaHoaDon 
+    dbo.HoaDon ON dbo.ChiTietHoaDon.MaHoaDon = dbo.HoaDon.MaHoaDon
 INNER JOIN
-    dbo.NhanVien ON dbo.HoaDon.MaNhanVien = dbo.NhanVien.MaNhanVien 
+    dbo.NhanVien ON dbo.HoaDon.MaNhanVien = dbo.NhanVien.MaNhanVien
 INNER JOIN
     dbo.SanPham ON dbo.ChiTietHoaDon.MaSanPham = dbo.SanPham.MaSanPham
 LEFT JOIN
-    dbo.KhachHang ON dbo.HoaDon.MaKhachHang = dbo.KhachHang.MaKhachHang 
-WHERE 
+    dbo.KhachHang ON dbo.HoaDon.MaKhachHang = dbo.KhachHang.MaKhachHang
+WHERE
     dbo.ChiTietHoaDon.MaHoaDon = $P{maHD}]]>
 	</queryString>
 	<field name="SoLuong" class="java.lang.Integer"/>

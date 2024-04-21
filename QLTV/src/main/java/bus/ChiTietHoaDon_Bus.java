@@ -16,4 +16,5 @@ public interface ChiTietHoaDon_Bus extends Remote {
     public List<ChiTietHoaDon> getChiTietByMa(String maHoaDon) throws RemoteException;
     public double getTongTienHoaDon(String maHD) throws RemoteException;
     public List<Object[]> getSpBanChay(int limit, Date date, Date fromDate, Date endDate) throws RemoteException;
+    public List<Object[]> getChiTietHoaDonByMaHD(String maHoaDon) throws RemoteException;
 }

@@ -38,6 +38,7 @@ public class ChiTietHoaDon implements Serializable {
     }
 
 
+
     public int getSoLuong() {
         return soLuong;
     }

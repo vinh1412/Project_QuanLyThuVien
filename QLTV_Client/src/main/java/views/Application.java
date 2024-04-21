@@ -156,7 +156,7 @@ public class Application extends javax.swing.JFrame {
                 app = new Application();
                 app.setVisible(true);
             } catch (RemoteException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             } catch (NotBoundException e) {

@@ -43,6 +43,8 @@ public class HoaDon implements Serializable {
         this.maHoaDon = maHoaDon;
     }
 
+
+
     public HoaDon(String maHoaDon, Date ngayLap, KhachHang khachHang, NhanVien nhanVien, double giamGia) {
         this.maHoaDon = maHoaDon;
         this.ngayLap = ngayLap;

@@ -14,37 +14,37 @@
         <maven.compiler.target>14</maven.compiler.target>
         <maven.compiler.source>14</maven.compiler.source>
         <junit.version>5.9.2</junit.version>
-        <jars>D:\TAI_LIEU_HOC\LTPT-JAVA\Project_QuanLyThuVien\QLTV_Client\src\main\java\lib</jars>
+<!--        <jars>D:\TAI_LIEU_HOC\LTPT-JAVA\Project_QuanLyThuVien\QLTV_Client\src\main\java\lib</jars>-->
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>lib</groupId>
-            <artifactId>lib</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${jars}/lib.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>raven-bean-pack</groupId>
-            <artifactId>raven-bean-pack</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${jars}/raven-bean-pack-2.0.0.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>swing-crazy-panel</groupId>
-            <artifactId>swing-crazy-panel</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${jars}/swing-crazy-panel-1.0.0.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>swing-toast-notifications</groupId>
-            <artifactId>swing-toast-notifications</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${jars}/swing-toast-notifications-1.0.1.jar</systemPath>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>lib</groupId>-->
+<!--            <artifactId>lib</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${jars}/lib.jar</systemPath>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>raven-bean-pack</groupId>-->
+<!--            <artifactId>raven-bean-pack</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${jars}/raven-bean-pack-2.0.0.jar</systemPath>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>swing-crazy-panel</groupId>-->
+<!--            <artifactId>swing-crazy-panel</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${jars}/swing-crazy-panel-1.0.0.jar</systemPath>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>swing-toast-notifications</groupId>-->
+<!--            <artifactId>swing-toast-notifications</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${jars}/swing-toast-notifications-1.0.1.jar</systemPath>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout -->
         <dependency>
             <groupId>org.netbeans.external</groupId>
@@ -98,6 +98,11 @@
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf-fonts-roboto</artifactId>
             <version>2.137</version>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.13</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
         <dependency>

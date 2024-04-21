@@ -23,8 +23,8 @@ public class LoginForm extends javax.swing.JPanel {
     public LoginForm() {
         initComponents();
         init();
-        txtUser.setText("0704462651");
-        txtPass.setText("thangptud");
+        txtUser.setText("0704462655");
+        txtPass.setText("11111111");
     }
 
     private void init() {
