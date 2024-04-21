@@ -16,6 +16,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -321,6 +322,15 @@ public class panel_DanhSachHoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
         txt_timKiem.setText("");
         cmb_giaTriHD.setSelectedIndex(0);
+        jdc_from.setDate(new Date());
+        jdc_end.setDate(new Date());
+        try {
+            renderData();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
 
     }//GEN-LAST:event_btn_lamMoiActionPerformed
 

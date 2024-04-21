@@ -34,7 +34,6 @@ public class Application extends javax.swing.JFrame {
     private static TaiKhoan tk;
     private static panel_TaoHoaDon viewTaoHoaDon;
     private static panel_QuanLySanPham viewQLSP;
-    //    Type 0 -> QL, 1 -> BH
     private static int type;
 
     public Application() throws RemoteException, MalformedURLException, NotBoundException {

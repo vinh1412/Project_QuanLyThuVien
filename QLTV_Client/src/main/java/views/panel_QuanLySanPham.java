@@ -283,6 +283,11 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
         cmb_nhaCungCap.setSelectedIndex(0);
         cmb_tacGia.setSelectedIndex(0);
         cmb_theLoai.setSelectedIndex(0);
+        try {
+            renderDataToView();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -1011,7 +1016,7 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
                 lbl_HinhAnhView.setIcon(imageIcon);
             }
         }
-    }//GEN-LAST:event_lbl_HinhAnhViewMouseClicked
+    }
 
     private void cmb_theLoaiTopItemStateChanged(java.awt.event.ItemEvent evt) throws RemoteException, MalformedURLException, NotBoundException {//GEN-FIRST:event_cmb_theLoaiTopItemStateChanged
         // TODO add your handling code here:

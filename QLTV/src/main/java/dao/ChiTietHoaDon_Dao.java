@@ -100,12 +100,4 @@ public class ChiTietHoaDon_Dao extends UnicastRemoteObject implements ChiTietHoa
             return query.getResultList();
     }
 
-
-//    public static void main(String[] args) throws RemoteException {
-//        ChiTietHoaDon_Bus chiTietHoaDon_bus = new ChiTietHoaDon_Dao();
-//        List<Object[]> list = chiTietHoaDon_bus.getChiTietHoaDonByMaHD("HD-14122300");
-//        for (Object[] objects : list) {
-//            System.out.println(Arrays.toString(objects));
-//        }
-//    }
 }

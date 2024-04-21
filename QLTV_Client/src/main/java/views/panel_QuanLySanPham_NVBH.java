@@ -302,7 +302,11 @@ public class panel_QuanLySanPham_NVBH extends javax.swing.JPanel {
 
         btn_lamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_lamMoiActionPerformed(evt);
+                try {
+                    btn_lamMoiActionPerformed(evt);
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -421,13 +425,13 @@ public class panel_QuanLySanPham_NVBH extends javax.swing.JPanel {
         debounce.restart();
     }//GEN-LAST:event_txt_timKiemKeyPressed
 
-    private void btn_lamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lamMoiActionPerformed
-        // TODO add your handling code here:
+    private void btn_lamMoiActionPerformed(java.awt.event.ActionEvent evt) throws RemoteException {//GEN-FIRST:event_btn_lamMoiActionPerformed
         cmb_danhMuc.setSelectedIndex(0);
         cmb_nhaCungCap.setSelectedIndex(0);
         cmb_tacGia.setSelectedIndex(0);
         cmb_theLoai.setSelectedIndex(0);
-    }//GEN-LAST:event_btn_lamMoiActionPerformed
+        renderDataToView();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

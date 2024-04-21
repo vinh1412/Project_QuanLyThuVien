@@ -100,6 +100,7 @@ public class NhanVien_Dao extends UnicastRemoteObject implements NhanVien_Bus {
         if (tt >= 0 && tt != 2) {
             query += " AND nv.trangThai = :trangThai";
         }
+
         TypedQuery<NhanVien> jpql = em.createQuery(query, NhanVien.class);
         if (cv >= 0 && cv != 2) {
             jpql.setParameter("chucVu", cv);

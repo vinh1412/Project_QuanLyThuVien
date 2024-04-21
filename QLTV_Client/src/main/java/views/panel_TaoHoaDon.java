@@ -246,7 +246,7 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
         }
     }
 
-    private void themHDCho() {
+    private void themHDCho() throws RemoteException {
         String hoTen = txt_tenKH.getText();
         String SDT = txt_timKiemKH.getText();
         if (txt_maKH.getText().equals("")) {
@@ -273,6 +273,13 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
 
                 hoTen = txt_HoTenHangCho.getText().trim();
                 SDT = txt_SDTHangCho.getText().trim();
+                Date ngayHienTai = new Date();
+                long timestampHienTai = ngayHienTai.getTime();
+                long timestampNgaySinh = timestampHienTai - (7L * 365L * 24L * 60L * 60L * 1000L);
+                Date ngaySinh = new Date(timestampNgaySinh);
+                String maKH= GenerateID.generateMaKH(khachHang_Bus.getSoLuongKH()+1, ngaySinh);
+                KhachHang kh = new KhachHang(maKH, hoTen, 0, SDT, ngaySinh, 0);
+                khachHang_Bus.themKhachHang(kh);
             }
         }
 
@@ -1039,8 +1046,13 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (gioHang.isEmpty()) {
             NotifyToast.showErrorToast("Giỏ hàng đang trống");
-        } else
-            themHDCho();
+        } else {
+            try {
+                themHDCho();
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }//GEN-LAST:event_btn_hangChoActionPerformed
 
     private void btn_xemHangChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xemHangChoActionPerformed

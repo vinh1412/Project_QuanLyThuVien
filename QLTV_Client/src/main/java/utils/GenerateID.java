@@ -54,10 +54,14 @@ public class GenerateID {
     }
 
     public static String generateMaKH(int soThuTu, Date namSinh) {
-        String yearPart = String.format("%02d", namSinh);
-        String employeeCounterPart = String.format("%02d", soThuTu + 1);
-        String maKH = "KH-" + yearPart + employeeCounterPart;
-        return maKH;
+        Date ngaySinh = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yy");
+        String namSinhh = sdf.format(ngaySinh);
+
+        String soCuoi = String.format("%02d", soThuTu + 1);
+        String customerCode = "KH-" + namSinhh + soCuoi;
+
+        return customerCode;
     }
     
     public static String generateMaHoaDon(int soThuTu) {

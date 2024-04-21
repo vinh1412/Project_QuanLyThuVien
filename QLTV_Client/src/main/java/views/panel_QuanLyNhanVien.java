@@ -230,9 +230,9 @@ public class panel_QuanLyNhanVien extends javax.swing.JPanel {
 
         String chucVu;
         if (nv.getChucVu() == 1) {
-            chucVu = "Nhân Viên Quản Lý";
+            chucVu = "Nhân Viên Quản lý";
         } else {
-            chucVu = "Nhân Viên Bán Hàng";
+            chucVu = "Nhân Viên Bán hàng";
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String ngaySinh = dateFormat.format(nv.getNgaySinh());
@@ -450,7 +450,7 @@ public class panel_QuanLyNhanVien extends javax.swing.JPanel {
         lbl_locChucVu.setText("Chức Vụ:");
 
         cmb_locChucVu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmb_locChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Quản Lý", "Nhân Viên Bán Hàng", "Tất cả" }));
+        cmb_locChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Bán hàng", "Nhân Viên Quản lý", "Tất cả" }));
         cmb_locChucVu.setSelectedIndex(2);
         cmb_locChucVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
