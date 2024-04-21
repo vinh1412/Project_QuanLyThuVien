@@ -80,4 +80,32 @@ public class ChiTietHoaDon_Dao extends UnicastRemoteObject implements ChiTietHoa
         typedQuery.setMaxResults(limit);
         return typedQuery.getResultList();
     }
+
+    @Override
+    public List<Object[]> getChiTietHoaDonByMaHD(String maHoaDon) throws RemoteException {
+            String jpql = "SELECT cthd.soLuong, cthd.giaBan, sp.tenSanPham, nv.tenNhanVien, hd.maHoaDon, " +
+                    "hd.giamGia, CASE WHEN hd.khachHang.maKhachHang IS NOT NULL THEN kh.tenKhachHang END, " +
+                    "hd.ngayLap, (cthd.soLuong * cthd.giaBan) as tongTien, " +
+                    "(SUM((cthd.soLuong * cthd.giaBan)) OVER (PARTITION BY cthd.hoaDon.maHoaDon) - hd.giamGia) as tongTienHoaDon " +
+                    "FROM ChiTietHoaDon cthd " +
+                    "INNER JOIN HoaDon hd ON cthd.hoaDon.maHoaDon = hd.maHoaDon " +
+                    "INNER JOIN NhanVien nv ON hd.nhanVien.maNhanVien = nv.maNhanVien " +
+                    "INNER JOIN SanPham sp ON cthd.sanPham.maSanPham = sp.maSanPham " +
+                    "LEFT JOIN KhachHang kh ON hd.khachHang.maKhachHang = kh.maKhachHang " +
+                    "WHERE cthd.hoaDon.maHoaDon = :maHoaDon";
+
+            Query query = em.createQuery(jpql, Object[].class);
+            query.setParameter("maHoaDon", maHoaDon);
+
+            return query.getResultList();
+    }
+
+
+//    public static void main(String[] args) throws RemoteException {
+//        ChiTietHoaDon_Bus chiTietHoaDon_bus = new ChiTietHoaDon_Dao();
+//        List<Object[]> list = chiTietHoaDon_bus.getChiTietHoaDonByMaHD("HD-14122300");
+//        for (Object[] objects : list) {
+//            System.out.println(Arrays.toString(objects));
+//        }
+//    }
 }
