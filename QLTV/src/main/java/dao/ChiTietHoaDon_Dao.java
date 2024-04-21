@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ChiTietHoaDon_Dao extends UnicastRemoteObject implements ChiTietHoaDon_Bus {
-    private EntityManager em;
+        private EntityManager em;
 
     public ChiTietHoaDon_Dao() throws RemoteException {
         em = Persistence.createEntityManagerFactory("JPA_MSSQL").createEntityManager();
