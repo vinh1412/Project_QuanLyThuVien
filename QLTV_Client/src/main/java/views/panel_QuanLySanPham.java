@@ -42,7 +42,7 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
     private final SanPham_Bus sanPham_Bus;
     private Timer debounce;
     private final DefaultTableModel model;
-    private List<SanPham> dsSP;
+//    private List<SanPham> dsSP=new ArrayList<>();
 
     public panel_QuanLySanPham() throws RemoteException, MalformedURLException, NotBoundException {
         sanPham_Bus = (SanPham_Bus) Naming.lookup(URL + "SanPham");
@@ -136,10 +136,10 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
     }
 
     private void renderDataToView() throws RemoteException {
-        System.out.println("Views.panel_QuanLySanPham.renderDataToView()");
-        dsSP = sanPham_Bus.getAllSanPham();
+//        System.out.println("Views.panel_QuanLySanPham.renderDataToView()");
+        List<SanPham> dsSanPham = sanPham_Bus.getAllSanPham();
         model.setRowCount(0);
-        for (SanPham i : dsSP) {
+        for (SanPham i : dsSanPham) {
             DecimalFormat decimalFormat = new DecimalFormat("#,###");
             String formattedAmount = decimalFormat.format(i.getGiaMua());
 
@@ -149,7 +149,7 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
     }
 
     private void timKiemSanPham() throws RemoteException {
-        dsSP = sanPham_Bus.timKiemSanPham(txt_timKiem.getText().trim());
+        List<SanPham> dsSP = sanPham_Bus.timKiemSanPham(txt_timKiem.getText().trim());
         model.setRowCount(0);
         for (SanPham i : dsSP) {
             model.addRow(new Object[]{i.getMaSanPham(), i.getTenSanPham(), i.getTheLoai(), i.getNhaCungCap(), i.getSoLuongTon(), i.getGiaMua(), i.getSoTrang()});
@@ -157,7 +157,7 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
     }
 
     private void locSanPham() throws RemoteException {
-        dsSP = sanPham_Bus.locSanPham((NhaCungCap) cmb_nhaCungCap.getSelectedItem(), (TacGia) cmb_tacGia.getSelectedItem(),
+        List<SanPham> dsSP = sanPham_Bus.locSanPham((NhaCungCap) cmb_nhaCungCap.getSelectedItem(), (TacGia) cmb_tacGia.getSelectedItem(),
                 (DanhMuc) cmb_danhMuc.getSelectedItem(), (TheLoai) cmb_theLoai.getSelectedItem());
         model.setRowCount(0);
         for (SanPham i : dsSP) {
@@ -213,10 +213,11 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
         return true;
     }
 
-    private boolean themSanPham() throws SQLException, RemoteException {
+    private void themSanPham() throws RemoteException {
         if (!txt_maSP.getText().trim().equals("")) {
             NotifyToast.showErrorToast("Sản phẩm đã tồn tại");
-            return false;
+//            return false;
+            return;
         }
         SanPham sp;
         int soThuTuSP = sanPham_Bus.getThuTuSanPham();
@@ -237,13 +238,17 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
         Matcher matcher = pattern.matcher(anhSP);
         if (matcher.matches()) {
             NotifyToast.showErrorToast("Không được để trống ảnh sản phẩm");
-            return false;
+//            return false;
         } else {
-            System.out.println(anhSP);
             anhSP = anhSP.substring(anhSP.indexOf("src"));
-            System.out.println(tacGia);
             sp = new SanPham(maSP, tenSP, giaMua, anhSP, ncc, tacGia, soTrang, theLoai, moTa, nxb, soLuong, vat);
-            return sanPham_Bus.themSanPham(sp);
+            boolean check = sanPham_Bus.themSanPham(sp);
+            if (check) {
+                NotifyToast.showSuccessToast("Thêm sản phẩm thành công");
+                lamMoi();
+            } else {
+                NotifyToast.showErrorToast("Thêm sản phẩm thất bại");
+            }
         }
     }
 
@@ -266,7 +271,8 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
         return sanPham_Bus.updateSanPham(sp);
     }
 
-    private SanPham getSPByMa(String maSP) {
+    private SanPham getSPByMa(String maSP) throws RemoteException {
+        List<SanPham> dsSP = sanPham_Bus.getAllSanPham();
         for (SanPham i : dsSP) {
             if (i.getMaSanPham().equals(maSP)) {
                 return i;
@@ -293,6 +299,7 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
         cmb_tacGia.setSelectedIndex(0);
         cmb_theLoai.setSelectedIndex(0);
         try {
+            model.setRowCount(0);
             renderDataToView();
         } catch (RemoteException e) {
             throw new RuntimeException(e);
@@ -381,7 +388,11 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
         table_dsSP.setRowHeight(32);
         table_dsSP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                table_dsSPMouseClicked(evt);
+                try {
+                    table_dsSPMouseClicked(evt);
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         scr_main.setViewportView(table_dsSP);
@@ -893,21 +904,13 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_cmb_tacGiaTopActionPerformed
 
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
-        if (validData()) {
             try {
-                if (themSanPham()) {
-                    NotifyToast.showSuccessToast("Thêm sản phẩm thành công");
-                    lamMoi();
-                    renderDataToView();
-                } else {
-                    NotifyToast.showErrorToast("Thêm sản phẩm thất bại");
+                if (validData()) {
+                    themSanPham();
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(panel_QuanLySanPham.class.getName()).log(Level.SEVERE, null, ex);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
-        }
     }//GEN-LAST:event_btn_themActionPerformed
 
     private void btn_locSPActionPerformed(java.awt.event.ActionEvent evt) throws RemoteException {//GEN-FIRST:event_btn_locSPActionPerformed
@@ -933,7 +936,7 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_capNhatActionPerformed
 
-    private void table_dsSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_dsSPMouseClicked
+    private void table_dsSPMouseClicked(java.awt.event.MouseEvent evt) throws RemoteException {//GEN-FIRST:event_table_dsSPMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 1) {
             int selectedRow = table_dsSP.getSelectedRow();

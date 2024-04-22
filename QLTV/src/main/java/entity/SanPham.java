@@ -8,7 +8,8 @@ import java.util.Set;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "SanPham.findAll", query = "SELECT sp FROM SanPham sp JOIN NhaCungCap n ON sp.nhaCungCap.maNhaCungCap = n.maNhaCungCap JOIN TheLoai tl ON sp.theLoai.maTheLoai = tl.maTheLoai JOIN DanhMuc d ON tl.danhMuc.maDanhMuc = d.maDanhMuc"),
+        @NamedQuery(name = "SanPham.findAll", query = "SELECT sp FROM SanPham sp"),
+//        @NamedQuery(name = "SanPham.findAll", query = "SELECT sp FROM SanPham sp JOIN NhaCungCap n ON sp.nhaCungCap.maNhaCungCap = n.maNhaCungCap JOIN TheLoai tl ON sp.theLoai.maTheLoai = tl.maTheLoai JOIN DanhMuc d ON tl.danhMuc.maDanhMuc = d.maDanhMuc"),
 //        @NamedQuery(name = "SanPham.findSPByMaSanPham", query = "SELECT sp FROM SanPham sp WHERE sp.maSanPham = :maSanPham"),
         @NamedQuery(name = "SanPham.find",query = "SELECT sp FROM SanPham sp JOIN NhaCungCap n ON sp.nhaCungCap.maNhaCungCap = n.maNhaCungCap JOIN TheLoai tl ON sp.theLoai.maTheLoai = tl.maTheLoai JOIN DanhMuc d ON tl.danhMuc.maDanhMuc = d.maDanhMuc WHERE lower(sp.tenSanPham) like lower(:tenSanPham) or lower(sp.maSanPham) like lower(:maSanPham) "),
         @NamedQuery(name = "SanPham.count",query = "SELECT COUNT(sp) FROM SanPham sp"),

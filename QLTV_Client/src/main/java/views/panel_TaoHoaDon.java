@@ -232,10 +232,51 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
             note.setSpacingBefore(50f);
             document.add(note);
 
-            String tongTienHoaDonStr = currencyFormat.format(tongTienHoaDon);
-            Paragraph footer = new Paragraph("Tổng tiền hóa đơn: " + tongTienHoaDonStr, fontCell);
-            document.add(footer);
+            String tienKhachDuaStr="";
+            if(!txt_tienKhachDua.getText().equals("")){
+                double tienKhachDua = Double.parseDouble(txt_tienKhachDua.getText());
+                tienKhachDuaStr = currencyFormat.format(tienKhachDua);
+            }else {
+                tienKhachDuaStr = currencyFormat.format(0);
+            }
 
+            Paragraph tienKhachDuaPa = new Paragraph("Tiền khách đưa: " + tienKhachDuaStr, fontCell);
+
+
+            String tienTraLaiStr="";
+            if (!txt_tienTraLai.getText().equals("")) {
+                double tienTraLai = Double.parseDouble(txt_tienTraLai.getText().replaceAll("\\D",""));
+                tienTraLaiStr = currencyFormat.format(tienTraLai);
+            }else {
+                tienTraLaiStr = currencyFormat.format(0);
+            }
+            Paragraph tienTraLaiPa = new Paragraph("Tiền trả lại: " + tienTraLaiStr, fontCell);
+
+            String giamGiaStr="";
+            if (!txt_giamGia.getText().equals("")) {
+                double giamGia = Double.parseDouble(txt_giamGia.getText().replaceAll("\\D",""));
+                giamGiaStr = currencyFormat.format(giamGia);
+            }else {
+                giamGiaStr = currencyFormat.format(0);
+            }
+            Paragraph giamGiaPa = new Paragraph("Giảm giá: " + giamGiaStr, fontCell);
+
+            String tongTienStr="";
+            if (!txt_tongTien.getText().equals("")) {
+                double tongTien = Double.parseDouble(txt_tongTien.getText().replaceAll("\\D",""));
+                tongTienStr = currencyFormat.format(tongTien);
+            }else {
+                tongTienStr = currencyFormat.format(0);
+            }
+            Paragraph tongTienPa = new Paragraph("Tổng tiền hóa đơn: " + tongTienStr, fontCell);
+
+            String tongTienHoaDonStr = currencyFormat.format(tongTienHoaDon);
+            Paragraph footer = new Paragraph("Thanh toán: " + tongTienHoaDonStr, fontCell);
+            document.add(tongTienPa);
+            document.add(giamGiaPa);
+            document.add(footer);
+            document.add(tienKhachDuaPa);
+            document.add(tienTraLaiPa);
             document.close();
             writer.close();
             System.out.println("Hóa đơn đã được tạo thành công.");
@@ -935,20 +976,20 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
         if (soLuong != null) {
             try {
                 int quantity = Integer.parseInt(soLuong);
-                System.out.println(quantity);
+//                System.out.println(quantity);
                 if (quantity == 0 || quantity < 0) {
                     NotifyToast.showErrorToast("Số lượng sản phẩm phải lớn hơn 0");
                     return;
                 }
 
                 Object value = tbl_dsSP.getValueAt(selectedRow, 0);
-                System.out.println(value);
+//                System.out.println(value);
                 String firstCellValue = String.valueOf(value);
-                System.out.println(firstCellValue);
+//                System.out.println(firstCellValue);
                 SanPham i = sanPham_Bus.getSanPhamTheoMa(firstCellValue);
-                System.out.println(i.getSoLuongTon());
+//                System.out.println(i.getSoLuongTon());
                 boolean setSuccess = setQuantitySP(i.getMaSanPham(), quantity);
-                System.out.println(i.getSoLuongTon());
+//                System.out.println(i.getSoLuongTon());
                 if (setSuccess) {
                     SanPham cartItem = new SanPham(i.getMaSanPham(), i.getTenSanPham(), i.getGiaMua(), i.getSoLuongTon(), i.getVat());
                     cartItem.setSoLuongTon(quantity);
@@ -1093,6 +1134,18 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (validDataTaoHD()) {
             try {
+                if(!txt_tienKhachDua.getText().equals("")){
+                    double tienDua = Double.parseDouble(txt_tienKhachDua.getText());
+                    double thanhToan = Double.parseDouble(txt_thanhToan.getText().replaceAll("\\D", ""));
+                    if (tienDua < thanhToan) {
+                        NotifyToast.showErrorToast("Tiền khách đưa không đủ");
+                        return;
+                    }
+                }else {
+                    NotifyToast.showErrorToast("Vui lòng nhập tiền khách đưa");
+                    return;
+                }
+
                 if (taoHD()) {
                     NotifyToast.showSuccessToast("Tạo hóa đơn thành công");
                     lamMoiKH();
@@ -1101,6 +1154,8 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
                     txt_timKiemSP.setText("");
                     tongTien = 0;
                     giamGia = 0;
+                    txt_tienKhachDua.setText("");
+                    txt_tienTraLai.setText("");
                     renderDataToCart();
                     renderDataToDSSP();
                 }
@@ -1191,21 +1246,22 @@ public class panel_TaoHoaDon extends javax.swing.JPanel {
 
     private void txt_tienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tienKhachDuaKeyReleased
         // TODO add your handling code here:
+        double tienDua = 0;
+        double thanhToan = 0;
         if (!txt_tienKhachDua.getText().isEmpty()) {
-            double tienDua = 0;
+
             if (!txt_tienKhachDua.getText().equals(0)) {
                 tienDua = Double.parseDouble(txt_tienKhachDua.getText());
             }
-            double thanhToan = 0;
+
             if (!txt_thanhToan.getText().equals("")) {
                 thanhToan = tongTien - giamGia;
             }
-            txt_tienTraLai.setText(formatVND(tienDua - thanhToan));
+            txt_tienTraLai.setText(formatVND(tienDua - thanhToan + 0.001));
 
         } else {
             txt_tienTraLai.setText("");
         }
-
 
     }//GEN-LAST:event_txt_tienKhachDuaKeyReleased
 
