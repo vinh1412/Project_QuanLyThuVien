@@ -45,10 +45,10 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
     private List<SanPham> dsSP;
 
     public panel_QuanLySanPham() throws RemoteException, MalformedURLException, NotBoundException {
-        sanPham_Bus = (SanPham_Bus) Naming.lookup(URL + "SanPham");
         initComponents();
-        model = (DefaultTableModel) table_dsSP.getModel();
         customInitComponents();
+        sanPham_Bus = (SanPham_Bus) Naming.lookup(URL + "SanPham");
+        model = (DefaultTableModel) table_dsSP.getModel();
         renderDataToView();
         renderDataToComboBox();
     }
@@ -142,7 +142,6 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
         for (SanPham i : dsSP) {
             DecimalFormat decimalFormat = new DecimalFormat("#,###");
             String formattedAmount = decimalFormat.format(i.getGiaMua());
-
             formattedAmount += " VNĐ";
             model.addRow(new Object[]{i.getMaSanPham(), i.getTenSanPham(), i.getTheLoai(), i.getNhaCungCap(), i.getSoLuongTon(), formattedAmount, i.getSoTrang()});
         }
@@ -248,7 +247,6 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
     }
 
     private boolean updateSanPham() throws SQLException, RemoteException {
-
         String maSP = txt_maSP.getText().trim();
         String tenSP = txt_tenSP.getText().trim();
         int soLuong = Integer.parseInt(txt_soLuong.getText().trim());
@@ -735,7 +733,6 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
                 txt_soLuongKeyTyped(evt);
             }
         });
-
         lbl_HinhAnhView.setIcon(IconUtils.createScaledIcon("src/main/java/img/no_image.png", 100, 100)); // NOI18N
         lbl_HinhAnhView.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         lbl_HinhAnhView.setMinimumSize(new java.awt.Dimension(200, 100));
@@ -960,6 +957,11 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_table_dsSPMouseClicked
 
     private void btn_lamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lamMoiActionPerformed
+        try {
+            renderDataToView();
+        } catch (RemoteException ex) {
+            Logger.getLogger(panel_QuanLySanPham.class.getName()).log(Level.SEVERE, null, ex);
+        }
         lamMoi();
     }//GEN-LAST:event_btn_lamMoiActionPerformed
 
@@ -1013,7 +1015,7 @@ public class panel_QuanLySanPham extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txt_soLuongKeyTyped
 
-    private void lbl_HinhAnhViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_HinhAnhViewMouseClicked
+    private void lbl_HinhAnhViewMouseClicked(java.awt.event.MouseEvent evt) {                                             
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) { // Check for double click
             JFileChooser fileChooser = new JFileChooser();

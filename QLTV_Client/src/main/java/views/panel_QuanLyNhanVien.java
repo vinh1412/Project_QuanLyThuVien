@@ -450,7 +450,7 @@ public class panel_QuanLyNhanVien extends javax.swing.JPanel {
         lbl_locChucVu.setText("Chức Vụ:");
 
         cmb_locChucVu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmb_locChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Bán hàng", "Nhân Viên Quản lý", "Tất cả" }));
+        cmb_locChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân Viên Quản Lý", "Nhân Viên Bán Hàng", "Tất cả" }));
         cmb_locChucVu.setSelectedIndex(2);
         cmb_locChucVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -743,7 +743,7 @@ public class panel_QuanLyNhanVien extends javax.swing.JPanel {
         pnl_top.setBackground(new java.awt.Color(255, 255, 255));
 
         lbl_tieuDe.setBackground(new java.awt.Color(255, 255, 255));
-        lbl_tieuDe.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbl_tieuDe.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lbl_tieuDe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_tieuDe.setText("QUẢN LÝ NHÂN VIÊN");
 
