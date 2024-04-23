@@ -54,9 +54,8 @@ public class GenerateID {
     }
 
     public static String generateMaKH(int soThuTu, Date namSinh) {
-        Date ngaySinh = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yy");
-        String namSinhh = sdf.format(ngaySinh);
+        String namSinhh = sdf.format(namSinh);
 
         String soCuoi = String.format("%02d", soThuTu + 1);
         String customerCode = "KH-" + namSinhh + soCuoi;

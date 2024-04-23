@@ -100,11 +100,11 @@ public class panel_QuanLyNhanVien extends javax.swing.JPanel {
             return false;
         }
         
-        if (nhanVien_Bus.checkSDT(soDT) > 0) {
-            NotifyToast.showErrorToast("Số điện thoại đã tồn tại");
-            txt_soDienThoai.requestFocus();
-            return false;
-        }
+//        if (nhanVien_Bus.checkSDT(soDT) > 0) {
+//            NotifyToast.showErrorToast("Số điện thoại đã tồn tại");
+//            txt_soDienThoai.requestFocus();
+//            return false;
+//        }
 
         if (txt_diaChi.getText().equals("")) {
             NotifyToast.showErrorToast("Địa chỉ không được để trống");
@@ -162,7 +162,6 @@ public class panel_QuanLyNhanVien extends javax.swing.JPanel {
         String luongCoBan = txt_luongCoBan.getText();
         Date ngayVaoLam = cld_ngayVaoLam.getDate();
         double luong = Double.parseDouble(luongCoBan);
-        System.out.println(chucVu);
         NhanVien nhanVien = new NhanVien(maNV, tenNV, ngaySinh, gioiTinh, soDT, diaChi, trangThai, chucVu, luong, ngayVaoLam);
         return nhanVien;
     }
@@ -184,6 +183,11 @@ public class panel_QuanLyNhanVien extends javax.swing.JPanel {
         boolean themNhanVien = nhanVien_Bus.themNhanVien(nhanVien);
         if (!txt_maNV.getText().equals("")) {
             NotifyToast.showErrorToast("Nhân viên đã tồn tại");
+            return;
+        }
+        if (nhanVien_Bus.checkSDT(soDT) > 0) {
+            NotifyToast.showErrorToast("Số điện thoại đã tồn tại");
+            txt_soDienThoai.requestFocus();
             return;
         }
         if (themNhanVien) {
@@ -273,6 +277,8 @@ public class panel_QuanLyNhanVien extends javax.swing.JPanel {
         cmb_locTrangThai.setSelectedIndex(2);
         cmb_locChucVu.setSelectedIndex(2);
         cmb_locGioiTinh.setSelectedIndex(3);
+        cld_ngaySinhNV.setDate(new Date());
+        cld_ngayVaoLam.setDate(new Date());
     }
 
     //Làm mới
