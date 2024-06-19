@@ -13,7 +13,7 @@ package utils;
  * @version:    1.0
  */
 public class RMIServiceURL {
-    private static final String DEFAULT_HOST = "localhost";
+    private static final String DEFAULT_HOST = "192.168.73.62";
     private static final int DEFAULT_PORT = 5151;
     private static final String DEFAULT_URL = "rmi://" + DEFAULT_HOST + ":" + DEFAULT_PORT + "/";
 

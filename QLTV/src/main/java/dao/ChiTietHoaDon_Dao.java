@@ -24,7 +24,7 @@ public class ChiTietHoaDon_Dao extends UnicastRemoteObject implements ChiTietHoa
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.persist(chiTietHoaDon);
+            em.persist(chiTietHoaDon); //
             tx.commit();
             return true;
         } catch (Exception e) {
